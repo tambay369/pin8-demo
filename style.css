@@ -51,25 +51,9 @@ body {
 .hidden { display: none !important; }
 .gold-text { color: #D4AF37; text-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
 
-/* PAGE 1: REGISTRATION */
-.registration-box {
-    max-width: 900px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.registration-box h1 {
-    font-size: 3rem;
-    margin-bottom: 10px;
-    letter-spacing: 0.5rem;
-}
-
-.subtitle {
-    color: #888;
-    font-size: 1.2rem;
-    margin-bottom: 40px;
-    letter-spacing: 0.2rem;
-}
+.registration-box { max-width: 900px; margin: 0 auto; text-align: center; }
+.registration-box h1 { font-size: 3rem; margin-bottom: 10px; letter-spacing: 0.5rem; }
+.subtitle { color: #888; font-size: 1.2rem; margin-bottom: 40px; letter-spacing: 0.2rem; }
 
 .form-section {
     background: #0a0a0a;
@@ -78,11 +62,7 @@ body {
     border-radius: 12px;
 }
 
-.section-heading {
-    font-size: 1.8rem;
-    margin-bottom: 30px;
-    color: #D4AF37;
-}
+.section-heading { font-size: 1.8rem; margin-bottom: 30px; color: #D4AF37; }
 
 input[type="text"], input[type="password"], input[type="email"], input[type="tel"], textarea {
     width: 100%;
@@ -105,7 +85,6 @@ input:focus, textarea:focus {
 
 textarea { min-height: 100px; resize: vertical; }
 
-/* FILE UPLOAD */
 .file-upload { margin: 25px 0; text-align: center; }
 .file-label {
     display: inline-block;
@@ -115,9 +94,7 @@ textarea { min-height: 100px; resize: vertical; }
     border-radius: 6px;
     cursor: pointer;
     color: #D4AF37;
-    transition: all 0.3s;
 }
-.file-label:hover { background: rgba(212, 175, 55, 0.1); }
 .file-label input { display: none; }
 .logo-preview {
     width: 120px;
@@ -128,7 +105,6 @@ textarea { min-height: 100px; resize: vertical; }
     margin-top: 15px;
 }
 
-/* INDUSTRY GRID */
 .industry-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -142,7 +118,6 @@ textarea { min-height: 100px; resize: vertical; }
     padding: 25px 15px;
     border-radius: 8px;
     cursor: pointer;
-    transition: all 0.3s;
     text-align: center;
 }
 
@@ -156,13 +131,8 @@ textarea { min-height: 100px; resize: vertical; }
 .industry-card h4 { color: #D4AF37; font-size: 1rem; margin-bottom: 5px; }
 .industry-card p { color: #888; font-size: 0.8rem; }
 
-.selected-text {
-    color: #FFD700;
-    font-weight: bold;
-    margin: 20px 0;
-}
+.selected-text { color: #FFD700; font-weight: bold; margin: 20px 0; }
 
-/* PERMISSION CHECKBOX */
 .permission-box {
     background: rgba(212, 175, 55, 0.05);
     border: 2px solid #D4AF37;
@@ -179,18 +149,8 @@ textarea { min-height: 100px; resize: vertical; }
     cursor: pointer;
 }
 
-.checkbox-container input {
-    width: 20px;
-    height: 20px;
-    accent-color: #D4AF37;
-}
-
-.checkbox-container p {
-    color: #aaa;
-    font-size: 0.95rem;
-    margin: 0;
-}
-
+.checkbox-container input { width: 20px; height: 20px; accent-color: #D4AF37; }
+.checkbox-container p { color: #aaa; font-size: 0.95rem; margin: 0; }
 .hint { color: #666; font-size: 0.9rem; margin-top: 10px; }
 
 .enter-btn {
@@ -203,8 +163,6 @@ textarea { min-height: 100px; resize: vertical; }
     cursor: pointer;
     border-radius: 6px;
     margin: 30px 0 15px 0;
-    letter-spacing: 0.1rem;
-    transition: all 0.3s;
 }
 
 .enter-btn:hover {
@@ -214,7 +172,6 @@ textarea { min-height: 100px; resize: vertical; }
 
 .error { color: #ff4444; font-weight: bold; margin-top: 20px; }
 
-/* PAGE 2: HEADER */
 .main-header {
     display: flex;
     justify-content: space-between;
@@ -224,20 +181,8 @@ textarea { min-height: 100px; resize: vertical; }
     margin-bottom: 30px;
 }
 
-.branded-info {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.header-logo {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border: 2px solid #D4AF37;
-    border-radius: 8px;
-}
-
+.branded-info { display: flex; align-items: center; gap: 20px; }
+.header-logo { width: 60px; height: 60px; object-fit: cover; border: 2px solid #D4AF37; border-radius: 8px; }
 #brandedBusinessName { color: #D4AF37; font-size: 1.5rem; }
 .industry-tag { color: #888; font-size: 0.9rem; }
 
@@ -251,7 +196,6 @@ textarea { min-height: 100px; resize: vertical; }
     font-weight: bold;
 }
 
-/* ARCHITECTURE SECTION */
 .architecture-section {
     background: #0a0a0a;
     border: 2px solid #D4AF37;
@@ -276,7 +220,6 @@ textarea { min-height: 100px; resize: vertical; }
     width: 100%;
     max-width: 500px;
     cursor: pointer;
-    transition: all 0.3s;
     text-align: center;
 }
 
@@ -299,7 +242,6 @@ textarea { min-height: 100px; resize: vertical; }
 
 .arch-arrow { color: #D4AF37; font-size: 2rem; }
 
-/* MODULE CONTENT */
 .module-content {
     background: #0a0a0a;
     border: 2px solid #D4AF37;
@@ -325,26 +267,28 @@ textarea { min-height: 100px; resize: vertical; }
     margin: 10px 5px;
 }
 
-.item-list {
+.module-tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+.tab-btn {
     background: #000;
-    border: 1px solid #333;
-    padding: 20px;
-    border-radius: 8px;
-    margin: 20px 0;
-}
-
-.item-card {
-    background: #111;
-    border: 1px solid #D4AF37;
-    padding: 15px;
+    border: 2px solid #D4AF37;
+    color: #D4AF37;
+    padding: 10px 20px;
+    cursor: pointer;
     border-radius: 6px;
-    margin: 10px 0;
+    font-weight: bold;
 }
+.tab-btn:hover, .tab-btn.active {
+    background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
+    color: #000;
+}
+.tab-content { animation: fadeIn 0.5s; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
+.item-list { background: #000; border: 1px solid #333; padding: 20px; border-radius: 8px; margin: 20px 0; }
+.item-card { background: #111; border: 1px solid #D4AF37; padding: 15px; border-radius: 6px; margin: 10px 0; }
 .item-card h5 { color: #D4AF37; margin-bottom: 5px; }
 .item-card p { color: #888; font-size: 0.9rem; }
 
-/* DASHBOARD REPORT */
 .dashboard-report {
     background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(0, 0, 0, 0) 100%);
     border: 3px solid #D4AF37;
@@ -371,7 +315,6 @@ textarea { min-height: 100px; resize: vertical; }
 .report-label { color: #888; font-size: 0.9rem; margin-bottom: 10px; }
 .report-value { color: #D4AF37; font-size: 2rem; font-weight: bold; }
 
-/* LEAD CAPTURE */
 .lead-capture-section {
     background: #0a0a0a;
     border: 3px solid #D4AF37;
@@ -400,7 +343,6 @@ textarea { min-height: 100px; resize: vertical; }
 
 .form-hint { color: #666; font-size: 0.9rem; margin-top: 15px; }
 
-/* FOOTER */
 .main-footer {
     text-align: center;
     padding: 40px 20px;
@@ -411,7 +353,6 @@ textarea { min-height: 100px; resize: vertical; }
 .main-footer p { margin: 8px 0; }
 .main-footer .small { font-size: 0.85rem; color: #555; }
 
-/* RESPONSIVE */
 @media (max-width: 1024px) {
     .industry-grid { grid-template-columns: repeat(2, 1fr); }
     .report-grid { grid-template-columns: repeat(2, 1fr); }
@@ -425,12 +366,9 @@ textarea { min-height: 100px; resize: vertical; }
     .report-grid { grid-template-columns: repeat(2, 1fr); }
     .main-header { flex-direction: column; gap: 15px; text-align: center; }
     .branded-info { flex-direction: column; }
-    .architecture-flow { gap: 15px; }
-    .arch-card { max-width: 100%; }
 }
 
 @media (max-width: 480px) {
     .industry-grid { grid-template-columns: 1fr; }
     .report-grid { grid-template-columns: 1fr; }
-    .enter-btn { padding: 15px 40px; font-size: 1rem; }
 }
