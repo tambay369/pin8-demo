@@ -8,3 +8,20 @@
     width: 100%;
     margin: 10px 0;
 }
+
+/* RADIO BUTTON STYLING */
+input[type="radio"] {
+    accent-color: #D4AF37;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+label:hover {
+    background: rgba(212, 175, 55, 0.1);
+    border-color: #FFD700;
+}
+
+label input[type="radio"]:checked + span {
+    color: #FFD700;
+}
