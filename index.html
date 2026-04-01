@@ -18,8 +18,8 @@
             <p class="subtitle">Your Exciting Journey to FREEDOM, TEST ONLY 😊</p>
             
             <div class="access-section">
-                <input type="text" id="userName" placeholder="Your Full Name" />
-                <input type="password" id="accessCode" placeholder="Access Code" />
+                <input type="text" id="userName" placeholder="Your Full Name" autocomplete="off" />
+                <input type="password" id="accessCode" placeholder="Access Code" autocomplete="off" />
                 <p class="hint">Access Code: TAMBAY369</p>
             </div>
 
@@ -40,7 +40,13 @@
                 <p id="selectedType" class="selected-text"></p>
             </div>
 
-            <button onclick="enterDemo()" class="enter-btn">ENTER PIN8 ECOSYSTEM</button>
+            <!-- TIME WARNING -->
+            <div id="timeWarning" class="time-warning hidden">
+                <p>⏱️ Please take a moment to review the information above before proceeding.</p>
+            </div>
+
+            <button onclick="enterDemo()" id="enterBtn" class="enter-btn" disabled>ENTER PIN8 ECOSYSTEM</button>
+            <p id="countdown" class="countdown hidden">Please wait: <span id="timer">60</span> seconds</p>
             <p id="errorMsg" class="error hidden"></p>
         </div>
     </div>
@@ -267,20 +273,32 @@
             </div>
         </section>
 
-        <!-- LEAD CAPTURE -->
+        <!-- LEAD CAPTURE WITH PROTECTIONS -->
         <section class="lead-section" id="leadSection">
             <h2 class="section-heading gold-text">🎯 Ready to Explore Further?</h2>
             <p class="section-subtitle">Share your context. This helps us align PIN8 to your specific needs.</p>
             
             <div class="lead-form">
+                <!-- HONEYPOT FIELD (Hidden from humans) -->
+                <input type="text" id="honeypot" class="honeypot" tabindex="-1" autocomplete="off" placeholder="" />
+                
                 <input type="email" id="leadEmail" placeholder="📧 Email Address" />
                 <input type="tel" id="leadPhone" placeholder="📱 Phone / WhatsApp" />
                 <input type="text" id="leadBusiness" placeholder="🏢 Business/Company Name" />
                 <textarea id="leadPainPoints" placeholder="💭 What are your biggest pain points, needs, and challenges right now?"></textarea>
                 <textarea id="leadQuestions" placeholder="❓ What are your top questions about PIN8?"></textarea>
                 
+                <!-- MATH CAPTCHA -->
+                <div class="captcha-section">
+                    <p class="captcha-question">Security Check: What is <span id="num1"></span> + <span id="num2"></span>?</p>
+                    <input type="number" id="captchaAnswer" placeholder="Your answer" />
+                </div>
+                
                 <button onclick="submitLead()" class="submit-btn">REQUEST EXCLUSIVE ALIGNMENT CALL</button>
                 <p class="form-hint">This is a conversation, not a commitment. We'll reach out within 48 hours.</p>
+                
+                <!-- REPORT ABUSE BUTTON -->
+                <button onclick="reportAbuse()" class="report-btn">🚨 Report Abuse / Suspicious Activity</button>
             </div>
         </section>
 
@@ -288,6 +306,7 @@
             <p class="gold-text">PIN8 PRIME SPINE SYSTEM</p>
             <p>Sovereign Infrastructure • Perpetual Rights • Zero Lock-in</p>
             <p class="small">© 2026 PIN8 Ecosystem • Confidential Demo Environment</p>
+            <p class="small">Protected by PIN8 Sovereignty Guards 🔐</p>
         </footer>
     </div>
 
