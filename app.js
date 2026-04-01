@@ -1,24 +1,31 @@
-const ACCESS_CODE = "TAMBAY369"; // No spaces
+// PIN8 DEMO SYSTEM
+const ACCESS_CODE = "TAMBAY369";
 const SESSION_DURATION = 72 * 60 * 60 * 1000; // 72 hours
+
 let currentUser = "";
 let userType = ""; // FUNDER or CLIENT
 let interactionStartTime = null;
-let leadCaptured = false;
 
-// LOGIN
-function attemptLogin() {
-    const name = document.getElementById('username').value.trim();
-    const code = document.getElementById('access-code').value.trim();
+// SELECT TYPE
+function selectType(type) {
+    userType = type;
+    const text = type === 'FUNDER' ? '💎 PIN8 FUNDER Selected' : '🏢 PIN8 CLIENT Selected';
+    document.getElementById('selectedType').innerText = text;
     
-    // Get selected interest
-    const interestRadios = document.getElementsByName('interest');
-    let selectedInterest = null;
-    for (let radio of interestRadios) {
-        if (radio.checked) {
-            selectedInterest = radio.value;
-            break;
-        }
-    }
+    // Visual feedback
+    document.querySelectorAll('.option-card').forEach(card => {
+        card.style.borderColor = '#D4AF37';
+        card.style.background = 'linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(0, 0, 0, 0) 100%)';
+    });
+    
+    event.currentTarget.style.borderColor = '#FFD700';
+    event.currentTarget.style.background = 'linear-gradient(135deg, rgba(212, 175, 55, 0.25) 0%, rgba(0, 0, 0, 0) 100%)';
+}
+
+// ENTER DEMO
+function enterDemo() {
+    const name = document.getElementById('userName').value.trim();
+    const code = document.getElementById('accessCode').value.trim();
     
     if (!name) {
         showError("Please enter your name");
@@ -30,78 +37,78 @@ function attemptLogin() {
         return;
     }
     
-    if (!selectedInterest) {
-        showError("Please select if you're interested as FUNDER or CLIENT");
+    if (!userType) {
+        showError("Please select FUNDER or CLIENT");
         return;
     }
     
-    // Debug: Show what was entered
-    console.log("Login attempt:", { name, code, enteredCode: code, expectedCode: ACCESS_CODE, match: code === ACCESS_CODE });
-    
-    if (code === ACCESS_CODE) {
-        userType = selectedInterest;
-        grantAccess(name);
-    } else {
-        showError("Invalid Access Code - Check: TAMBAY369 (no spaces)");
+    if (code !== ACCESS_CODE) {
+        showError("Invalid Access Code - Use: TAMBAY369");
+        return;
     }
-}
-
-function grantAccess(name) {
+    
+    // Success
     currentUser = name;
     interactionStartTime = Date.now();
+    
     document.getElementById('watermark').innerText = `${name} • ${userType} • CONFIDENTIAL`;
-    document.getElementById('login-screen').classList.add('hidden');
-    document.getElementById('dashboard').classList.remove('hidden');
-    document.getElementById('welcome-msg').innerText = `Welcome, ${name} (${userType})`;
+    document.getElementById('welcomeName').innerText = `Welcome, ${name} (${userType})`;
+    
+    // Show funder-specific FAQ if FUNDER
+    if (userType === 'FUNDER') {
+        document.getElementById('funder-faq').classList.remove('hidden');
+    }
+    
+    // Switch pages
+    document.getElementById('page-welcome').classList.add('hidden');
+    document.getElementById('page-overview').classList.remove('hidden');
     
     // Set expiry
     localStorage.setItem('pin8_demo_expiry', Date.now() + SESSION_DURATION);
     
-    // Save login data with user type
-    saveSessionData('login', { 
-        name: name, 
-        userType: userType,
-        timestamp: new Date().toISOString() 
+    // Save session
+    saveData('login', { name, userType, timestamp: new Date().toISOString() });
+    
+    // Scroll to top
+    window.scrollTo(0, 0);
+}
+
+// TOGGLE FAQ
+function toggleFaq(element) {
+    const answer = element.nextElementSibling;
+    const isHidden = answer.classList.contains('hidden');
+    
+    // Close all FAQs
+    document.querySelectorAll('.faq-answer').forEach(faq => {
+        faq.classList.add('hidden');
+    });
+    document.querySelectorAll('.faq-question').forEach(q => {
+        q.classList.remove('active');
     });
     
-    // Start interaction timer (show lead capture after 2 minutes)
-    setTimeout(() => {
-        if (!leadCaptured) {
-            showLeadCapture();
-        }
-    }, 120000); // 2 minutes
-}
-    
-    // Save session start
-    saveSessionData('login', { name: name, timestamp: new Date().toISOString() });
+    // Open clicked if was closed
+    if (isHidden) {
+        answer.classList.remove('hidden');
+        element.classList.add('active');
+    }
 }
 
-// SHOW LEAD CAPTURE FORM
-function showLeadCapture() {
-    document.getElementById('lead-capture').classList.remove('hidden');
-    document.getElementById('lead-capture').scrollIntoView({ behavior: 'smooth' });
-}
-
-function skipLeadCapture() {
-    document.getElementById('lead-capture').classList.add('hidden');
-    leadCaptured = true;
-}
-
-function submitLeadData() {
-    const email = document.getElementById('lead-email').value;
-    const phone = document.getElementById('lead-phone').value;
-    const business = document.getElementById('lead-business').value;
-    const painPoints = document.getElementById('lead-pain-points').value;
-    const questions = document.getElementById('lead-questions').value;
+// SUBMIT LEAD
+function submitLead() {
+    const email = document.getElementById('leadEmail').value.trim();
+    const phone = document.getElementById('leadPhone').value.trim();
+    const business = document.getElementById('leadBusiness').value.trim();
+    const painPoints = document.getElementById('leadPainPoints').value.trim();
+    const questions = document.getElementById('leadQuestions').value.trim();
     
     if (!email) {
-        alert("Please enter at least your email address.");
+        alert("Please enter your email address.");
         return;
     }
     
     const leadData = {
         name: currentUser,
-        userType: userType, // FUNDER or CLIENT
+        userType: userType,
         email: email,
         phone: phone,
         business: business,
@@ -111,68 +118,41 @@ function submitLeadData() {
         sessionDuration: Math.floor((Date.now() - interactionStartTime) / 1000) + " seconds"
     };
     
-    // Save to localStorage
-    saveSessionData('lead_capture', leadData);
-    saveToLeadDatabase(leadData);
+    saveData('lead', leadData);
+    saveToDatabase(leadData);
     
-    alert(`✅ Thank you ${name}! Your ${userType} qualification has been saved. We'll reach out soon.`);
-    document.getElementById('lead-capture').classList.add('hidden');
-    leadCaptured = true;
+    alert(`✅ Thank you ${name}!\n\nYour ${userType} qualification has been received.\n\nWe'll reach out within 48 hours to schedule your exclusive alignment call.`);
+    
+    // Clear form
+    document.getElementById('leadEmail').value = '';
+    document.getElementById('leadPhone').value = '';
+    document.getElementById('leadBusiness').value = '';
+    document.getElementById('leadPainPoints').value = '';
+    document.getElementById('leadQuestions').value = '';
 }
 
-// SAVE SESSION DATA
-function saveSessionData(type, data) {
+// SAVE DATA
+function saveData(type, data) {
     const sessions = JSON.parse(localStorage.getItem('pin8_demo_sessions') || '[]');
     sessions.push({
         type: type,
         user: currentUser,
-        data: data,
+        userType: userType,
+         data,
         timestamp: new Date().toISOString()
     });
     localStorage.setItem('pin8_demo_sessions', JSON.stringify(sessions));
 }
 
-// SAVE TO LEAD DATABASE (LocalStorage)
-function saveToLeadDatabase(leadData) {
+function saveToDatabase(leadData) {
     const leads = JSON.parse(localStorage.getItem('pin8_leads') || '[]');
     leads.push(leadData);
     localStorage.setItem('pin8_leads', JSON.stringify(leads));
 }
 
-// MODULES
-function loadModule(module) {
-    document.getElementById('module-view').classList.remove('hidden');
-    document.getElementById('module-title').innerText = `${module.toUpperCase()} MODULE`;
-    
-    let content = "";
-    if (module === 'talk') {
-        content = "<p><strong>Secure Communication Grid:</strong> Encrypted • Sovereign • Perpetual</p><p>Test: Type a message below to see how it works.</p>";
-    } else if (module === 'manage') {
-        content = "<p><strong>Task & Operations Flow:</strong> Automated • Transparent • Aligned</p><p>Test: Create a task below to experience the flow.</p>";
-    } else if (module === 'track') {
-        content = "<p><strong>Pulse Intelligence Dashboard:</strong> Real-time • Predictive • Sovereign</p><p>Test: Enter data below to see tracking in action.</p>";
-    }
-    
-    document.getElementById('module-content').innerHTML = content;
-    saveSessionData('module_view', { module: module });
-}
-
-function closeModule() {
-    document.getElementById('module-view').classList.add('hidden');
-    document.getElementById('demo-response').classList.add('hidden');
-    document.getElementById('demo-input').value = "";
-}
-
-function simulateAction() {
-    document.getElementById('demo-response').classList.remove('hidden');
-    document.getElementById('demo-response').innerText = "✅ Action Simulated • Sovereign Infrastructure Active";
-    saveSessionData('interaction', { action: 'simulate', input: document.getElementById('demo-input').value });
-    setTimeout(() => { document.getElementById('demo-response').classList.add('hidden'); }, 3000);
-}
-
+// LOGOUT
 function logout() {
-    // Save final session summary
-    saveSessionData('logout', { 
+    saveData('logout', { 
         totalDuration: Math.floor((Date.now() - interactionStartTime) / 1000) + " seconds",
         timestamp: new Date().toISOString()
     });
@@ -181,16 +161,20 @@ function logout() {
     location.reload();
 }
 
+// ERROR
 function showError(msg) {
-    const err = document.getElementById('error-msg');
+    const err = document.getElementById('errorMsg');
     err.innerText = msg;
     err.classList.remove('hidden');
+    setTimeout(() => {
+        err.classList.add('hidden');
+    }, 5000);
 }
 
-// Disable Right Click
+// DISABLE RIGHT CLICK
 document.addEventListener('contextmenu', event => event.preventDefault());
 
-// Check Expiry on Load
+// CHECK EXPIRY
 if (localStorage.getItem('pin8_demo_expiry')) {
     if (Date.now() > localStorage.getItem('pin8_demo_expiry')) {
         alert("Demo Access Expired. Please Request New Access.");
@@ -199,9 +183,9 @@ if (localStorage.getItem('pin8_demo_expiry')) {
     }
 }
 
-// VIEW LEAD DATA (Console Command)
+// CONSOLE COMMANDS
 console.log("%c📊 PIN8 LEAD DATABASE", "color: #D4AF37; font-size: 20px; font-weight: bold;");
-console.log("%cTo view collected leads, type: viewLeads()", "color: #888; font-size: 12px;");
+console.log("%cType viewLeads() to see collected data", "color: #888;");
 
 function viewLeads() {
     const leads = JSON.parse(localStorage.getItem('pin8_leads') || '[]');
