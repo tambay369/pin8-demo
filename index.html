@@ -7,7 +7,13 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- BREATHING LOGO BACKGROUND -->
+    <div id="logo-background">PIN8</div>
+    
+    <!-- WATERMARK -->
     <div id="watermark"></div>
+
+    <!-- LOGIN SCREEN -->
     <div id="login-screen" class="container">
         <h1>PIN8 PRIME SPINE</h1>
         <p>Confidential Demo Environment</p>
@@ -17,25 +23,113 @@
         <p id="error-msg" class="hidden">Access Denied</p>
         <p class="small">Funder: PIN8-FUNDER | Client: PIN8-CLIENT</p>
     </div>
+
+    <!-- DASHBOARD -->
     <div id="dashboard" class="hidden container">
         <header>
             <h2 id="welcome-msg"></h2>
             <button onclick="logout()" class="logout">Exit</button>
         </header>
+        
+        <!-- MODULES -->
         <div class="modules">
-            <div class="card" onclick="loadModule('talk')"><h3>TALK</h3><p>Communication Grid</p></div>
-            <div class="card" onclick="loadModule('manage')"><h3>MANAGE</h3><p>Task & Ops Flow</p></div>
-            <div class="card" onclick="loadModule('track')"><h3>TRACK</h3><p>Pulse Intelligence</p></div>
+            <div class="card" onclick="loadModule('talk')">
+                <h3>TALK</h3>
+                <p>Secure Communication Grid</p>
+            </div>
+            <div class="card" onclick="loadModule('manage')">
+                <h3>MANAGE</h3>
+                <p>Task & Operations Flow</p>
+            </div>
+            <div class="card" onclick="loadModule('track')">
+                <h3>TRACK</h3>
+                <p>Pulse Intelligence Dashboard</p>
+            </div>
         </div>
+
+        <!-- INTERACTIVE AREA -->
         <div id="module-view" class="hidden">
             <button onclick="closeModule()" class="back">← Back</button>
             <h3 id="module-title"></h3>
             <div id="module-content"></div>
-            <textarea id="demo-input" placeholder="Type here to test..."></textarea>
+            <textarea id="demo-input" placeholder="Type here to experience the system..."></textarea>
             <button onclick="simulateAction()">Submit (Demo)</button>
-            <p id="demo-response" class="hidden">✅ Action Simulated (Not Saved)</p>
+            <p id="demo-response" class="hidden">✅ Action Simulated • Sovereign Infrastructure Active</p>
+        </div>
+
+        <!-- FAQ SECTION -->
+        <div class="faq-section">
+            <h2>FAQ</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">🔐 What is PIN8 Prime Spine System?</div>
+                <div class="faq-answer">
+                    A sovereign infrastructure platform designed for MSMEs to operate with complete autonomy, data ownership, and seamless integration. It's not just software—it's a <strong>foundation</strong> for business sovereignty.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">🎯 Who is this for?</div>
+                <div class="faq-answer">
+                    Visionary entrepreneurs and funders who value <strong>sovereignty over dependency</strong>, <strong>ownership over subscription</strong>, and <strong>long-term wealth over short-term gains</strong>. If you believe businesses should own their infrastructure, PIN8 resonates.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">💎 What makes PIN8 different?</div>
+                <div class="faq-answer">
+                    Unlike traditional SaaS platforms, PIN8 operates on a <strong>covenant model</strong>—not a contract. You own your data 100%, participate in ecosystem growth, and operate with perpetual rights. No lock-ins. No hidden fees. Pure sovereignty.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">🚀 How does the 369 Framework work?</div>
+                <div class="faq-answer">
+                    The 369 Framework is our proprietary activation sequence. It's designed to align intention, infrastructure, and income in a way that creates <strong>self-sustaining momentum</strong>. Details revealed only after alignment and handshake.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">🔒 Is my data really private?</div>
+                <div class="faq-answer">
+                    <strong>Absolutely.</strong> PIN8 operates on a "Client owns 100%" principle. We are processors, not owners. Your data never leaves your compartment. Ever. This is encoded in our sovereignty guards and perpetual confidentiality agreements.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">💰 What's the investment?</div>
+                <div class="faq-answer">
+                    Investment details are shared only after the <strong>Written Handshake</strong> and alignment call. Why? Because value is contextual. What we can say: it's designed for those who understand <strong>infrastructure ownership</strong> is a generational wealth strategy, not an expense.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">⏱️ How long to deploy?</div>
+                <div class="faq-answer">
+                    From handshake to go-live: <strong>75 days</strong> (Day 75 Go-Live Protocol). This includes integration, training, and sovereignty guard activation. We don't rush foundations.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">🤝 What happens after I say YES?</div>
+                <div class="faq-answer">
+                    1️⃣ Written Handshake (NDA + Terms)<br>
+                    2️⃣ 369 Alignment Call (3 Intentions • 6 Questions • 9 Outcomes)<br>
+                    3️⃣ Demo Access (72-hour interactive sandbox)<br>
+                    4️⃣ Covenant Brief (Full ecosystem reveal)<br>
+                    5️⃣ Activation & Integration Sprint<br><br>
+                    <strong>Ready to begin?</strong> The door is open.
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px; padding: 30px; border: 2px solid #D4AF37; border-radius: 10px; background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(0, 0, 0, 0) 100%);">
+                <p style="color: #D4AF37; font-size: 1.2rem; margin-bottom: 15px; letter-spacing: 0.2rem;">🎯 EXPERIENCED ENOUGH TO KNOW IT'S REAL?</p>
+                <p style="color: #888; margin-bottom: 20px;">The next step is a conversation, not a commitment.</p>
+                <button onclick="alert('Email: michael@pin8.eco\n\nReference: Demo Exploration')" style="background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%); color: #000; border: none; padding: 15px 40px; font-size: 1rem; font-weight: bold; cursor: pointer; border-radius: 5px; letter-spacing: 0.1rem;">REQUEST ALIGNMENT CALL</button>
+            </div>
         </div>
     </div>
+
     <script src="app.js"></script>
 </body>
 </html>
