@@ -15,13 +15,13 @@
 
     <!-- LOGIN SCREEN -->
     <div id="login-screen" class="container">
-        <h1>PIN8 PRIME SPINE</h1>
-        <p>Confidential Demo Environment</p>
+        <h1>PIN8 PRIME SPINE SYSTEM</h1>
+        <p>Your Journey to FREEDOM, TEST ONLY😊</p>
         <input type="text" id="username" placeholder="Enter Your Name" />
         <input type="password" id="access-code" placeholder="Enter Access Code" />
         <button onclick="attemptLogin()">Enter</button>
-        <p id="error-msg" class="hidden">Access Denied</p>
-        <p class="small">Funder: PIN8-FUNDER | Client: PIN8-CLIENT</p>
+        <p id="error-msg" class="hidden">Invalid Access Code</p>
+        <p class="small">Access Code: TAMBAY369</p>
     </div>
 
     <!-- DASHBOARD -->
@@ -55,6 +55,23 @@
             <textarea id="demo-input" placeholder="Type here to experience the system..."></textarea>
             <button onclick="simulateAction()">Submit (Demo)</button>
             <p id="demo-response" class="hidden">✅ Action Simulated • Sovereign Infrastructure Active</p>
+        </div>
+
+        <!-- LEAD CAPTURE FORM (Shows after 2 minutes of interaction) -->
+        <div id="lead-capture" class="hidden" style="margin-top: 40px; padding: 30px; border: 2px solid #D4AF37; border-radius: 10px; background: #0a0a0a;">
+            <h2 style="color: #D4AF37; margin-bottom: 20px;">🎯 Help Us Serve You Better</h2>
+            <p style="color: #888; margin-bottom: 20px;">Share your context. This helps us align PIN8 to your specific needs.</p>
+            
+            <input type="text" id="lead-email" placeholder="📧 Email Address" style="margin-bottom: 15px;" />
+            <input type="tel" id="lead-phone" placeholder="📱 Phone / WhatsApp" style="margin-bottom: 15px;" />
+            <input type="text" id="lead-business" placeholder="🏢 Business/Company Name" style="margin-bottom: 15px;" />
+            
+            <textarea id="lead-pain-points" placeholder="💭 What are your biggest pain points, needs, and challenges right now?" style="height: 100px; margin-bottom: 15px;"></textarea>
+            
+            <textarea id="lead-questions" placeholder="❓ What are your top questions about PIN8?" style="height: 80px; margin-bottom: 15px;"></textarea>
+            
+            <button onclick="submitLeadData()" style="width: 100%; margin: 10px 0;">Submit & Continue Demo</button>
+            <button onclick="skipLeadCapture()" class="back" style="width: 100%;">Skip for Now</button>
         </div>
 
         <!-- FAQ SECTION -->
@@ -97,35 +114,16 @@
             </div>
 
             <div class="faq-item">
-                <div class="faq-question">💰 What's the investment?</div>
-                <div class="faq-answer">
-                    Investment details are shared only after the <strong>Written Handshake</strong> and alignment call. Why? Because value is contextual. What we can say: it's designed for those who understand <strong>infrastructure ownership</strong> is a generational wealth strategy, not an expense.
-                </div>
-            </div>
-
-            <div class="faq-item">
                 <div class="faq-question">⏱️ How long to deploy?</div>
                 <div class="faq-answer">
                     From handshake to go-live: <strong>75 days</strong> (Day 75 Go-Live Protocol). This includes integration, training, and sovereignty guard activation. We don't rush foundations.
                 </div>
             </div>
 
-            <div class="faq-item">
-                <div class="faq-question">🤝 What happens after I say YES?</div>
-                <div class="faq-answer">
-                    1️⃣ Written Handshake (NDA + Terms)<br>
-                    2️⃣ 369 Alignment Call (3 Intentions • 6 Questions • 9 Outcomes)<br>
-                    3️⃣ Demo Access (72-hour interactive sandbox)<br>
-                    4️⃣ Covenant Brief (Full ecosystem reveal)<br>
-                    5️⃣ Activation & Integration Sprint<br><br>
-                    <strong>Ready to begin?</strong> The door is open.
-                </div>
-            </div>
-
             <div style="text-align: center; margin-top: 40px; padding: 30px; border: 2px solid #D4AF37; border-radius: 10px; background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(0, 0, 0, 0) 100%);">
                 <p style="color: #D4AF37; font-size: 1.2rem; margin-bottom: 15px; letter-spacing: 0.2rem;">🎯 EXPERIENCED ENOUGH TO KNOW IT'S REAL?</p>
                 <p style="color: #888; margin-bottom: 20px;">The next step is a conversation, not a commitment.</p>
-                <button onclick="alert('Email: michael@pin8.eco\n\nReference: Demo Exploration')" style="background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%); color: #000; border: none; padding: 15px 40px; font-size: 1rem; font-weight: bold; cursor: pointer; border-radius: 5px; letter-spacing: 0.1rem;">REQUEST ALIGNMENT CALL</button>
+                <button onclick="showLeadCapture()" style="background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%); color: #000; border: none; padding: 15px 40px; font-size: 1rem; font-weight: bold; cursor: pointer; border-radius: 5px; letter-spacing: 0.1rem;">REQUEST ALIGNMENT CALL</button>
             </div>
         </div>
     </div>
