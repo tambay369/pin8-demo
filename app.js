@@ -1,4 +1,4 @@
-// PIN8 DEMO SYSTEM - WITH DEFENSIVE WALLS
+// PIN8 DEMO SYSTEM - WITH FREEZE & REFRESH PROTOCOL
 // Access Code (Base64 Obfuscated): TAMBAY369
 const ACCESS_CODE = atob("VEFNQkFZMzY5");
 
@@ -14,6 +14,7 @@ let captchaAnswer = 0;
 let suspiciousActivity = false;
 let mouseMovements = 0;
 let lastActivity = Date.now();
+let refreshCount = 0;
 
 // TRACK MOUSE MOVEMENTS (Behavioral Analysis)
 document.addEventListener('mousemove', () => {
@@ -72,12 +73,13 @@ function checkRateLimit() {
     return { allowed: true };
 }
 
-// START COUNTDOWN TIMER
+// START COUNTDOWN TIMER - FREEZE AFTER 36.9s
 function startCountdown() {
     const countdown = document.getElementById('countdown');
     const timer = document.getElementById('timer');
     const enterBtn = document.getElementById('enterBtn');
     const timeWarning = document.getElementById('timeWarning');
+    const welcomeContent = document.querySelector('.welcome-content');
     
     countdown.classList.remove('hidden');
     timeWarning.classList.remove('hidden');
@@ -91,9 +93,23 @@ function startCountdown() {
         
         if (seconds <= 0) {
             clearInterval(interval);
-            countdown.classList.add('hidden');
-            timeWarning.classList.add('hidden');
-            enterBtn.disabled = false;
+            
+            // FREEZE THE SCREEN
+            welcomeContent.style.pointerEvents = 'none';
+            welcomeContent.style.opacity = '0.5';
+            
+            // SHOW REFRESH MESSAGE
+            countdown.innerHTML = `
+                <div class="freeze-message">
+                    <p style="color: #D4AF37; font-size: 1.5rem; margin-bottom: 10px;">🔐 Access Window Closed</p>
+                    <p style="color: #888; font-size: 1rem;">REFRESH me now ☺️</p>
+                    <p style="color: #666; font-size: 0.85rem; margin-top: 15px;">(Press F5 or Ctrl+R)</p>
+                </div>
+            `;
+            
+            // Disable button permanently (until refresh)
+            enterBtn.disabled = true;
+            enterBtn.style.display = 'none';
         }
     }, 100);
 }
@@ -159,7 +175,7 @@ function enterDemo() {
     localStorage.setItem('pin8_demo_expiry', Date.now() + SESSION_DURATION);
     
     // Save session
-    saveData('login', { name, userType, timestamp: new Date().toISOString(), mouseMovements });
+    saveData('login', { name, userType, timestamp: new Date().toISOString(), mouseMovements, refreshCount });
     
     // Generate CAPTCHA for lead form
     generateCaptcha();
@@ -195,7 +211,6 @@ function submitLead() {
     const honeypot = document.getElementById('honeypot').value;
     if (honeypot) {
         logSuspiciousActivity('honeypot_triggered', { honeypot });
-        // Silently fail - don't alert the bot
         return;
     }
     
@@ -233,7 +248,7 @@ function submitLead() {
     
     // Check session duration
     const sessionDuration = interactionStartTime ? Math.floor((Date.now() - interactionStartTime) / 1000) : 0;
-    if (sessionDuration < 120) { // Minimum 2 minutes
+    if (sessionDuration < 120) {
         showError("Please spend more time exploring the demo before submitting.");
         return;
     }
@@ -256,7 +271,8 @@ function submitLead() {
         timestamp: new Date().toISOString(),
         sessionDuration: sessionDuration + " seconds",
         mouseMovements: mouseMovements,
-        userAgent: navigator.userAgent
+        userAgent: navigator.userAgent,
+        refreshCount: refreshCount
     };
     
     saveData('lead', leadData);
@@ -323,7 +339,7 @@ function saveData(type, data) {
         type: type,
         user: currentUser,
         userType: userType,
-         data,
+        data: data,
         timestamp: new Date().toISOString()
     });
     localStorage.setItem('pin8_demo_sessions', JSON.stringify(sessions));
@@ -374,10 +390,18 @@ if (localStorage.getItem('pin8_demo_expiry')) {
     }
 }
 
+// TRACK REFRESH COUNT
+function trackRefresh() {
+    refreshCount = parseInt(localStorage.getItem('pin8_refresh_count') || '0') + 1;
+    localStorage.setItem('pin8_refresh_count', refreshCount.toString());
+    console.log(` Refresh Count: ${refreshCount}`);
+}
+
 // CONSOLE COMMANDS
 console.log("%c📊 PIN8 LEAD DATABASE", "color: #D4AF37; font-size: 20px; font-weight: bold;");
 console.log("%cType viewLeads() to see collected data", "color: #888;");
 console.log("%c🛡️ Protected by PIN8 Sovereignty Guards", "color: #D4AF37;");
+console.log("%c🔐 Access Window: 36.9 seconds → REFRESH required", "color: #D4AF37;");
 
 function viewLeads() {
     const leads = JSON.parse(localStorage.getItem('pin8_leads') || '[]');
@@ -403,7 +427,8 @@ function viewAbuseReports() {
     return reports;
 }
 
-// INITIALIZE - Start countdown when page loads
+// INITIALIZE - Track refresh & Start countdown
 window.addEventListener('load', () => {
+    trackRefresh();
     startCountdown();
 });
