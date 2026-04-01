@@ -1,36 +1,68 @@
-const ACCESS_CODE = "TAMBAY369";
+const ACCESS_CODE = "TAMBAY369"; // No spaces
 const SESSION_DURATION = 72 * 60 * 60 * 1000; // 72 hours
 let currentUser = "";
+let userType = ""; // FUNDER or CLIENT
 let interactionStartTime = null;
 let leadCaptured = false;
 
 // LOGIN
 function attemptLogin() {
-    const name = document.getElementById('username').value;
-    const code = document.getElementById('access-code').value;
+    const name = document.getElementById('username').value.trim();
+    const code = document.getElementById('access-code').value.trim();
     
-    if (!name || !code) {
-        showError("Please enter name and access code");
+    // Get selected interest
+    const interestRadios = document.getElementsByName('interest');
+    let selectedInterest = null;
+    for (let radio of interestRadios) {
+        if (radio.checked) {
+            selectedInterest = radio.value;
+            break;
+        }
+    }
+    
+    if (!name) {
+        showError("Please enter your name");
         return;
     }
-
+    
+    if (!code) {
+        showError("Please enter the access code");
+        return;
+    }
+    
+    if (!selectedInterest) {
+        showError("Please select if you're interested as FUNDER or CLIENT");
+        return;
+    }
+    
+    // Debug: Show what was entered
+    console.log("Login attempt:", { name, code, enteredCode: code, expectedCode: ACCESS_CODE, match: code === ACCESS_CODE });
+    
     if (code === ACCESS_CODE) {
+        userType = selectedInterest;
         grantAccess(name);
     } else {
-        showError("Invalid Access Code");
+        showError("Invalid Access Code - Check: TAMBAY369 (no spaces)");
     }
 }
 
 function grantAccess(name) {
     currentUser = name;
     interactionStartTime = Date.now();
-    document.getElementById('watermark').innerText = `${name} • TEST • CONFIDENTIAL`;
+    document.getElementById('watermark').innerText = `${name} • ${userType} • CONFIDENTIAL`;
     document.getElementById('login-screen').classList.add('hidden');
     document.getElementById('dashboard').classList.remove('hidden');
-    document.getElementById('welcome-msg').innerText = `Welcome, ${name}`;
+    document.getElementById('welcome-msg').innerText = `Welcome, ${name} (${userType})`;
     
     // Set expiry
     localStorage.setItem('pin8_demo_expiry', Date.now() + SESSION_DURATION);
+    
+    // Save login data with user type
+    saveSessionData('login', { 
+        name: name, 
+        userType: userType,
+        timestamp: new Date().toISOString() 
+    });
     
     // Start interaction timer (show lead capture after 2 minutes)
     setTimeout(() => {
@@ -38,6 +70,7 @@ function grantAccess(name) {
             showLeadCapture();
         }
     }, 120000); // 2 minutes
+}
     
     // Save session start
     saveSessionData('login', { name: name, timestamp: new Date().toISOString() });
@@ -68,6 +101,7 @@ function submitLeadData() {
     
     const leadData = {
         name: currentUser,
+        userType: userType, // FUNDER or CLIENT
         email: email,
         phone: phone,
         business: business,
@@ -77,13 +111,11 @@ function submitLeadData() {
         sessionDuration: Math.floor((Date.now() - interactionStartTime) / 1000) + " seconds"
     };
     
-    // Save to localStorage (you can view this)
+    // Save to localStorage
     saveSessionData('lead_capture', leadData);
-    
-    // Also save to a visible "admin" view
     saveToLeadDatabase(leadData);
     
-    alert("✅ Thank you! Your information has been saved. We'll reach out soon.");
+    alert(`✅ Thank you ${name}! Your ${userType} qualification has been saved. We'll reach out soon.`);
     document.getElementById('lead-capture').classList.add('hidden');
     leadCaptured = true;
 }
