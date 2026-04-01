@@ -3,7 +3,7 @@
 const ACCESS_CODE = atob("VEFNQkFZMzY5");
 
 const SESSION_DURATION = 72 * 60 * 60 * 1000; // 72 hours
-const MIN_TIME_BEFORE_SUBMIT = 60000; // 60 seconds minimum
+const MIN_TIME_BEFORE_SUBMIT = 36900; // 36.9 seconds - PIN8 Framework
 const RATE_LIMIT_HOURS = 24;
 
 let currentUser = "";
@@ -82,11 +82,12 @@ function startCountdown() {
     countdown.classList.remove('hidden');
     timeWarning.classList.remove('hidden');
     
-    let seconds = 60;
+    let seconds = 36.9;
     
     const interval = setInterval(() => {
-        seconds--;
-        timer.innerText = seconds;
+        seconds -= 0.1;
+        if (seconds < 0) seconds = 0;
+        timer.innerText = seconds.toFixed(1);
         
         if (seconds <= 0) {
             clearInterval(interval);
@@ -94,7 +95,7 @@ function startCountdown() {
             timeWarning.classList.add('hidden');
             enterBtn.disabled = false;
         }
-    }, 1000);
+    }, 100);
 }
 
 // ENTER DEMO
@@ -305,7 +306,7 @@ function logSuspiciousActivity(type, data) {
     const logs = JSON.parse(localStorage.getItem('pin8_suspicious_logs') || '[]');
     logs.push({
         type: type,
-         data,
+        data: data,
         timestamp: new Date().toISOString(),
         userAgent: navigator.userAgent,
         ip: 'Not available (client-side only)'
