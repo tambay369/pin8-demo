@@ -37,7 +37,9 @@ function closeModule() {
 
 function simulateAction() {
     document.getElementById('demo-response').classList.remove('hidden');
+    document.getElementById('demo-response').innerText = "✅ Action Simulated • Sovereign Infrastructure Active";
     setTimeout(() => { document.getElementById('demo-response').classList.add('hidden'); }, 3000);
+
 }
 
 function logout() { localStorage.removeItem('pin8_demo_expiry'); location.reload(); }
