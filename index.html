@@ -3,145 +3,292 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PIN8 Prime Spine | Demo</title>
+    <title>PIN8 Prime Spine System | Confidential Demo</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- BREATHING LOGO BACKGROUND -->
-    <div id="logo-background">PIN8</div>
-    
-    <!-- WATERMARK -->
+    <!-- BREATHING LOGO -->
+    <div id="logo-bg">PIN8</div>
     <div id="watermark"></div>
 
-    <!-- LOGIN SCREEN -->
-<div id="login-screen" class="container">
-    <h1>PIN8 PRIME SPINE SYSTEM</h1>
-    <p>Your Journey to FREEDOM, TEST ONLY😊</p>
-    <input type="text" id="username" placeholder="Enter Your Name" />
-    <input type="password" id="access-code" placeholder="Enter Access Code" />
-    
-    <!-- QUALIFICATION OPTIONS -->
-    <div style="margin: 25px 0; text-align: left; max-width: 500px; margin-left: auto; margin-right: auto;">
-        <p style="color: #D4AF37; margin-bottom: 15px; text-align: center; font-weight: bold;">I am interested as a:</p>
-        <label style="display: block; padding: 15px; margin: 10px 0; background: #0a0a0a; border: 2px solid #D4AF37; border-radius: 5px; cursor: pointer; transition: all 0.3s;">
-            <input type="radio" name="interest" value="FUNDER" style="margin-right: 10px;" />
-            <span style="color: #D4AF37; font-weight: bold; font-size: 1.1rem;">💎 PIN8 FUNDER</span>
-            <p style="color: #888; font-size: 0.85rem; margin: 5px 0 0 0;">I want to be Qualified as a PIN8 FUNDER</p>
-        </label>
-        <label style="display: block; padding: 15px; margin: 10px 0; background: #0a0a0a; border: 2px solid #D4AF37; border-radius: 5px; cursor: pointer; transition: all 0.3s;">
-            <input type="radio" name="interest" value="CLIENT" style="margin-right: 10px;" />
-            <span style="color: #D4AF37; font-weight: bold; font-size: 1.1rem;">🏢 PIN8 CLIENT</span>
-            <p style="color: #888; font-size: 0.85rem; margin: 5px 0 0 0;">Interested PIN8 CLIENT (MSME Business Owner)</p>
-        </label>
+    <!-- PAGE 1: WELCOME & PRE-QUALIFICATION -->
+    <div id="page-welcome" class="container">
+        <div class="welcome-content">
+            <h1 class="gold-text">PIN8 PRIME SPINE SYSTEM</h1>
+            <p class="subtitle">Your Exciting Journey to FREEDOM, TEST ONLY 😊</p>
+            
+            <div class="access-section">
+                <input type="text" id="userName" placeholder="Your Full Name" />
+                <input type="password" id="accessCode" placeholder="Access Code" />
+                <p class="hint">Access Code: TAMBAY369</p>
+            </div>
+
+            <div class="qualification-section">
+                <p class="section-title">I am interested to be a:</p>
+                <div class="dual-options">
+                    <div class="option-card" onclick="selectType('FUNDER')">
+                        <div class="option-icon">💎</div>
+                        <h3>PIN8 FUNDER</h3>
+                        <p>Investment • Partnership • Ecosystem Growth</p>
+                    </div>
+                    <div class="option-card" onclick="selectType('CLIENT')">
+                        <div class="option-icon">🏢</div>
+                        <h3>PIN8 CLIENT</h3>
+                        <p>MSME Owner • Operational Excellence • Sovereignty</p>
+                    </div>
+                </div>
+                <p id="selectedType" class="selected-text"></p>
+            </div>
+
+            <button onclick="enterDemo()" class="enter-btn">ENTER PIN8 ECOSYSTEM</button>
+            <p id="errorMsg" class="error hidden"></p>
+        </div>
     </div>
-    
-    <button onclick="attemptLogin()">Enter</button>
-    <p id="error-msg" class="hidden">Invalid Access Code</p>
-    <p class="small">Access Code: TAMBAY369</p>
-</div>
 
-    <!-- DASHBOARD -->
-    <div id="dashboard" class="hidden container">
-        <header>
-            <h2 id="welcome-msg"></h2>
-            <button onclick="logout()" class="logout">Exit</button>
+    <!-- PAGE 2: OVERVIEW & FAQ -->
+    <div id="page-overview" class="container hidden">
+        <header class="main-header">
+            <h2 id="welcomeName"></h2>
+            <button onclick="logout()" class="exit-btn">Exit</button>
         </header>
-        
-        <!-- MODULES -->
-        <div class="modules">
-            <div class="card" onclick="loadModule('talk')">
-                <h3>TALK</h3>
-                <p>Secure Communication Grid</p>
-            </div>
-            <div class="card" onclick="loadModule('manage')">
-                <h3>MANAGE</h3>
-                <p>Task & Operations Flow</p>
-            </div>
-            <div class="card" onclick="loadModule('track')">
-                <h3>TRACK</h3>
-                <p>Pulse Intelligence Dashboard</p>
-            </div>
-        </div>
 
-        <!-- INTERACTIVE AREA -->
-        <div id="module-view" class="hidden">
-            <button onclick="closeModule()" class="back">← Back</button>
-            <h3 id="module-title"></h3>
-            <div id="module-content"></div>
-            <textarea id="demo-input" placeholder="Type here to experience the system..."></textarea>
-            <button onclick="simulateAction()">Submit (Demo)</button>
-            <p id="demo-response" class="hidden">✅ Action Simulated • Sovereign Infrastructure Active</p>
-        </div>
+        <!-- OVERVIEW SECTION -->
+        <section class="content-section">
+            <h2 class="section-heading gold-text">What is PIN8?</h2>
+            <div class="overview-box">
+                <p><strong>PIN8 Prime Spine System</strong> is a sovereign infrastructure platform designed for MSMEs and funders who value <span class="gold-text">autonomy over dependency</span> and <span class="gold-text">ownership over subscription</span>.</p>
+                <p>It's not just software—it's a <strong>foundation for business sovereignty</strong> that operates on covenant principles, not contracts.</p>
+            </div>
 
-        <!-- LEAD CAPTURE FORM (Shows after 2 minutes of interaction) -->
-        <div id="lead-capture" class="hidden" style="margin-top: 40px; padding: 30px; border: 2px solid #D4AF37; border-radius: 10px; background: #0a0a0a;">
-            <h2 style="color: #D4AF37; margin-bottom: 20px;">🎯 Help Us Serve You Better</h2>
-            <p style="color: #888; margin-bottom: 20px;">Share your context. This helps us align PIN8 to your specific needs.</p>
-            
-            <input type="text" id="lead-email" placeholder="📧 Email Address" style="margin-bottom: 15px;" />
-            <input type="tel" id="lead-phone" placeholder="📱 Phone / WhatsApp" style="margin-bottom: 15px;" />
-            <input type="text" id="lead-business" placeholder="🏢 Business/Company Name" style="margin-bottom: 15px;" />
-            
-            <textarea id="lead-pain-points" placeholder="💭 What are your biggest pain points, needs, and challenges right now?" style="height: 100px; margin-bottom: 15px;"></textarea>
-            
-            <textarea id="lead-questions" placeholder="❓ What are your top questions about PIN8?" style="height: 80px; margin-bottom: 15px;"></textarea>
-            
-            <button onclick="submitLeadData()" style="width: 100%; margin: 10px 0;">Submit & Continue Demo</button>
-            <button onclick="skipLeadCapture()" class="back" style="width: 100%;">Skip for Now</button>
-        </div>
+            <div class="vision-mission-grid">
+                <div class="vm-card">
+                    <h3 class="gold-text">👁️ VISION</h3>
+                    <p>A world where every MSME operates with complete sovereignty—owning their data, controlling their infrastructure, and participating in ecosystem wealth creation.</p>
+                </div>
+                <div class="vm-card">
+                    <h3 class="gold-text">🎯 MISSION</h3>
+                    <p>To provide sovereign infrastructure that empowers businesses with perpetual rights, zero lock-ins, and seamless integration—while preserving 100% data ownership.</p>
+                </div>
+            </div>
+
+            <div class="problems-section">
+                <h3 class="gold-text">🔥 What Problems We SOLVE?</h3>
+                <div class="problem-grid">
+                    <div class="problem-item">
+                        <span class="problem-icon">🔒</span>
+                        <h4>Data Ownership</h4>
+                        <p>You own 100% of your data. We're processors, not owners.</p>
+                    </div>
+                    <div class="problem-item">
+                        <span class="problem-icon">🔗</span>
+                        <h4>Vendor Lock-in</h4>
+                        <p>Perpetual rights. Exit anytime. No hostage situations.</p>
+                    </div>
+                    <div class="problem-item">
+                        <span class="problem-icon">💸</span>
+                        <h4>Hidden Costs</h4>
+                        <p>Transparent pricing. Tier 1 from GROSS. No surprises.</p>
+                    </div>
+                    <div class="problem-item">
+                        <span class="problem-icon">🔄</span>
+                        <h4>Integration Chaos</h4>
+                        <p>Seamless API-first architecture. Works with your existing tools.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- FAQ SECTION -->
-        <div class="faq-section">
-            <h2>FAQ</h2>
+        <section class="faq-section">
+            <h2 class="section-heading gold-text">Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span class="faq-icon">❓</span>
+                    <span>Is this another ERP, SAP, or IVY system?</span>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="faq-answer hidden">
+                    <p><strong>No.</strong> PIN8 is fundamentally different:</p>
+                    <ul>
+                        <li><strong>ERP/SAP:</strong> Traditional systems you <em>subscribe to</em> (they own your data)</li>
+                        <li><strong>PIN8:</strong> Sovereign infrastructure you <em>participate in</em> (you own your data 100%)</li>
+                    </ul>
+                    <p>Think of it as the difference between <span class="gold-text">renting an apartment</span> vs <span class="gold-text">owning the foundation</span>. We don't replace your ERP—we give you sovereignty over it.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span class="faq-icon">❓</span>
+                    <span>I have an existing system. How can PIN8 enhance it?</span>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="faq-answer hidden">
+                    <p><strong>PIN8 doesn't replace—it enhances and sovereignizes.</strong></p>
+                    <p>Our API-first architecture integrates with your current tools (QuickBooks, Xero, Salesforce, etc.) while adding:</p>
+                    <ul>
+                        <li>✨ <strong>Sovereignty Layer:</strong> You own all data, not your SaaS provider</li>
+                        <li>✨ <strong>Pulse Intelligence:</strong> Real-time insights across all systems</li>
+                        <li>✨ <strong>Unified Communication:</strong> Secure grid that connects everything</li>
+                        <li>✨ <strong>Wealth Participation:</strong> Share in ecosystem growth (funders)</li>
+                    </ul>
+                    <p class="gold-text"><em>Your existing tools become more powerful—and you finally own what you create.</em></p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span class="faq-icon">❓</span>
+                    <span>Is PIN8 compliant in all areas?</span>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="faq-answer hidden">
+                    <p><strong>Yes. Built-in compliance from day one:</strong></p>
+                    <ul>
+                        <li>🔐 <strong>Data Privacy:</strong> RA 10173 (Philippines) • GDPR-ready • SOC 2 principles</li>
+                        <li>🔐 <strong>Security:</strong> End-to-end encryption • Isolated compartments • Zero-knowledge architecture</li>
+                        <li>🔐 <strong>Financial:</strong> BIR-compliant • Audit trails • Perpetual records</li>
+                        <li>🔐 <strong>Legal:</strong> Perpetual confidentiality • Non-circumvention • Covenant-based (not contract-based)</li>
+                    </ul>
+                    <p>We don't just meet compliance—we make it your competitive advantage.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span class="faq-icon">❓</span>
+                    <span>How is this different from traditional SaaS?</span>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="faq-answer hidden">
+                    <div class="comparison-table">
+                        <div class="comparison-row">
+                            <div class="comparison-col traditional">
+                                <h4>Traditional SaaS</h4>
+                                <ul>
+                                    <li>❌ They own your data</li>
+                                    <li>❌ Monthly subscription forever</li>
+                                    <li>❌ Vendor lock-in</li>
+                                    <li>❌ Price increases anytime</li>
+                                    <li>❌ No equity participation</li>
+                                </ul>
+                            </div>
+                            <div class="comparison-col pin8">
+                                <h4 class="gold-text">PIN8</h4>
+                                <ul>
+                                    <li>✅ You own 100% of data</li>
+                                    <li>✅ One-time activation • Perpetual</li>
+                                    <li>✅ Exit rights • No lock-in</li>
+                                    <li>✅ Transparent • Tier 1 from GROSS</li>
+                                    <li>✅ Ecosystem wealth share (funders)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span class="faq-icon">❓</span>
+                    <span>What's the timeline from YES to live?</span>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="faq-answer hidden">
+                    <p><strong>Day 75 Go-Live Protocol:</strong></p>
+                    <ul>
+                        <li><strong>Week 1-2:</strong> Written Handshake • Alignment Call • Demo Access</li>
+                        <li><strong>Week 3-8:</strong> Integration Sprint • Data Migration • Training</li>
+                        <li><strong>Week 9-10:</strong> Testing • Sovereignty Guard Activation</li>
+                        <li><strong>Day 75:</strong> 🚀 GO-LIVE</li>
+                    </ul>
+                    <p>We don't rush foundations. We build them right.</p>
+                </div>
+            </div>
+
+            <!-- FUNDER-SPECIFIC FAQ -->
+            <div id="funder-faq" class="hidden">
+                <h3 class="section-heading gold-text" style="margin-top: 40px;">💎 FUNDER-SPECIFIC QUESTIONS</h3>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span class="faq-icon">💰</span>
+                        <span>What are the funding guidelines and fundamentals?</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="faq-answer hidden">
+                        <p><strong>Capital Deployment: ₱3.69M (Non-Negotiable)</strong></p>
+                        <ul>
+                            <li><strong>Structure:</strong> Revenue + Royalty Share (No Equity Dilution)</li>
+                            <li><strong>Your Share:</strong> 7.38% Founding Funder (3.69% Revenue + 3.69% Royalty)</li>
+                            <li><strong>Payment:</strong> Tier 1 from GROSS • Quarterly • Perpetual (36-month minimum)</li>
+                            <li><strong>Access Fee:</strong> ₱369K (Day 1 • Activates integration)</li>
+                            <li><strong>Deployment:</strong> 5-Jar Split (Partner • PIN8 Corp • Militia • Shield • Architect)</li>
+                        </ul>
+                        <p class="gold-text"><em>This isn't an investment—it's infrastructure ownership with perpetual returns.</em></p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span class="faq-icon">🛡️</span>
+                        <span>What sovereignty guards protect my capital?</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="faq-answer hidden">
+                        <ul>
+                            <li>🔒 <strong>Perpetual Confidentiality:</strong> Trade secrets protected forever</li>
+                            <li>🔒 <strong>Non-Circumvention:</strong> Cannot bypass the ecosystem</li>
+                            <li>🔒 <strong>Client Data Exclusion:</strong> Your data never used for others</li>
+                            <li>🔒 <strong>API-Only Integration:</strong> No merged code • Clean separation</li>
+                            <li>🔒 <strong>Exit Protocol:</strong> Defined exit rights • No hostage situations</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span class="faq-icon">📊</span>
+                        <span>What's the ROI timeline for funders?</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="faq-answer hidden">
+                        <p><strong>Conservative Projections (Post Day 75):</strong></p>
+                        <ul>
+                            <li><strong>Year 1:</strong> 10-20 MSME activations • ₱36.9M gross • Your share: ₱2.7M</li>
+                            <li><strong>Year 2:</strong> 25-40 MSME activations • ₱92.25M gross • Your share: ₱6.8M</li>
+                            <li><strong>Year 3:</strong> 50-75 MSME activations • ₱184.5M gross • Your share: ₱13.6M</li>
+                        </ul>
+                        <p><em>Actual numbers revealed after Written Handshake and alignment call.</em></p>
+                        <p class="gold-text">This is generational wealth infrastructure, not a quick flip.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LEAD CAPTURE -->
+        <section class="lead-section" id="leadSection">
+            <h2 class="section-heading gold-text">🎯 Ready to Explore Further?</h2>
+            <p class="section-subtitle">Share your context. This helps us align PIN8 to your specific needs.</p>
             
-            <div class="faq-item">
-                <div class="faq-question">🔐 What is PIN8 Prime Spine System?</div>
-                <div class="faq-answer">
-                    A sovereign infrastructure platform designed for MSMEs to operate with complete autonomy, data ownership, and seamless integration. It's not just software—it's a <strong>foundation</strong> for business sovereignty.
-                </div>
+            <div class="lead-form">
+                <input type="email" id="leadEmail" placeholder="📧 Email Address" />
+                <input type="tel" id="leadPhone" placeholder="📱 Phone / WhatsApp" />
+                <input type="text" id="leadBusiness" placeholder="🏢 Business/Company Name" />
+                <textarea id="leadPainPoints" placeholder="💭 What are your biggest pain points, needs, and challenges right now?"></textarea>
+                <textarea id="leadQuestions" placeholder="❓ What are your top questions about PIN8?"></textarea>
+                
+                <button onclick="submitLead()" class="submit-btn">REQUEST EXCLUSIVE ALIGNMENT CALL</button>
+                <p class="form-hint">This is a conversation, not a commitment. We'll reach out within 48 hours.</p>
             </div>
+        </section>
 
-            <div class="faq-item">
-                <div class="faq-question">🎯 Who is this for?</div>
-                <div class="faq-answer">
-                    Visionary entrepreneurs and funders who value <strong>sovereignty over dependency</strong>, <strong>ownership over subscription</strong>, and <strong>long-term wealth over short-term gains</strong>. If you believe businesses should own their infrastructure, PIN8 resonates.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">💎 What makes PIN8 different?</div>
-                <div class="faq-answer">
-                    Unlike traditional SaaS platforms, PIN8 operates on a <strong>covenant model</strong>—not a contract. You own your data 100%, participate in ecosystem growth, and operate with perpetual rights. No lock-ins. No hidden fees. Pure sovereignty.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">🚀 How does the 369 Framework work?</div>
-                <div class="faq-answer">
-                    The 369 Framework is our proprietary activation sequence. It's designed to align intention, infrastructure, and income in a way that creates <strong>self-sustaining momentum</strong>. Details revealed only after alignment and handshake.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">🔒 Is my data really private?</div>
-                <div class="faq-answer">
-                    <strong>Absolutely.</strong> PIN8 operates on a "Client owns 100%" principle. We are processors, not owners. Your data never leaves your compartment. Ever. This is encoded in our sovereignty guards and perpetual confidentiality agreements.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">⏱️ How long to deploy?</div>
-                <div class="faq-answer">
-                    From handshake to go-live: <strong>75 days</strong> (Day 75 Go-Live Protocol). This includes integration, training, and sovereignty guard activation. We don't rush foundations.
-                </div>
-            </div>
-
-            <div style="text-align: center; margin-top: 40px; padding: 30px; border: 2px solid #D4AF37; border-radius: 10px; background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(0, 0, 0, 0) 100%);">
-                <p style="color: #D4AF37; font-size: 1.2rem; margin-bottom: 15px; letter-spacing: 0.2rem;">🎯 EXPERIENCED ENOUGH TO KNOW IT'S REAL?</p>
-                <p style="color: #888; margin-bottom: 20px;">The next step is a conversation, not a commitment.</p>
-                <button onclick="showLeadCapture()" style="background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%); color: #000; border: none; padding: 15px 40px; font-size: 1rem; font-weight: bold; cursor: pointer; border-radius: 5px; letter-spacing: 0.1rem;">REQUEST ALIGNMENT CALL</button>
-            </div>
-        </div>
+        <footer class="main-footer">
+            <p class="gold-text">PIN8 PRIME SPINE SYSTEM</p>
+            <p>Sovereign Infrastructure • Perpetual Rights • Zero Lock-in</p>
+            <p class="small">© 2026 PIN8 Ecosystem • Confidential Demo Environment</p>
+        </footer>
     </div>
 
     <script src="app.js"></script>
