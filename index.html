@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIN8 Prime Spine | Demo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="watermark"></div>
+    <div id="login-screen" class="container">
+        <h1>PIN8 PRIME SPINE</h1>
+        <p>Confidential Demo Environment</p>
+        <input type="text" id="username" placeholder="Enter Your Name" />
+        <input type="password" id="access-code" placeholder="Enter Access Code" />
+        <button onclick="attemptLogin()">Enter</button>
+        <p id="error-msg" class="hidden">Access Denied</p>
+        <p class="small">Funder: PIN8-FUNDER | Client: PIN8-CLIENT</p>
+    </div>
+    <div id="dashboard" class="hidden container">
+        <header>
+            <h2 id="welcome-msg"></h2>
+            <button onclick="logout()" class="logout">Exit</button>
+        </header>
+        <div class="modules">
+            <div class="card" onclick="loadModule('talk')"><h3>TALK</h3><p>Communication Grid</p></div>
+            <div class="card" onclick="loadModule('manage')"><h3>MANAGE</h3><p>Task & Ops Flow</p></div>
+            <div class="card" onclick="loadModule('track')"><h3>TRACK</h3><p>Pulse Intelligence</p></div>
+        </div>
+        <div id="module-view" class="hidden">
+            <button onclick="closeModule()" class="back">← Back</button>
+            <h3 id="module-title"></h3>
+            <div id="module-content"></div>
+            <textarea id="demo-input" placeholder="Type here to test..."></textarea>
+            <button onclick="simulateAction()">Submit (Demo)</button>
+            <p id="demo-response" class="hidden">✅ Action Simulated (Not Saved)</p>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
