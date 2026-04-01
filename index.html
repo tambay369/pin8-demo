@@ -14,15 +14,31 @@
     <div id="watermark"></div>
 
     <!-- LOGIN SCREEN -->
-    <div id="login-screen" class="container">
-        <h1>PIN8 PRIME SPINE SYSTEM</h1>
-        <p>Your Journey to FREEDOM, TEST ONLY😊</p>
-        <input type="text" id="username" placeholder="Enter Your Name" />
-        <input type="password" id="access-code" placeholder="Enter Access Code" />
-        <button onclick="attemptLogin()">Enter</button>
-        <p id="error-msg" class="hidden">Invalid Access Code</p>
-        <p class="small">Access Code: TAMBAY369</p>
+<div id="login-screen" class="container">
+    <h1>PIN8 PRIME SPINE SYSTEM</h1>
+    <p>Your Journey to FREEDOM, TEST ONLY😊</p>
+    <input type="text" id="username" placeholder="Enter Your Name" />
+    <input type="password" id="access-code" placeholder="Enter Access Code" />
+    
+    <!-- QUALIFICATION OPTIONS -->
+    <div style="margin: 25px 0; text-align: left; max-width: 500px; margin-left: auto; margin-right: auto;">
+        <p style="color: #D4AF37; margin-bottom: 15px; text-align: center; font-weight: bold;">I am interested as a:</p>
+        <label style="display: block; padding: 15px; margin: 10px 0; background: #0a0a0a; border: 2px solid #D4AF37; border-radius: 5px; cursor: pointer; transition: all 0.3s;">
+            <input type="radio" name="interest" value="FUNDER" style="margin-right: 10px;" />
+            <span style="color: #D4AF37; font-weight: bold; font-size: 1.1rem;">💎 PIN8 FUNDER</span>
+            <p style="color: #888; font-size: 0.85rem; margin: 5px 0 0 0;">I want to be Qualified as a PIN8 FUNDER</p>
+        </label>
+        <label style="display: block; padding: 15px; margin: 10px 0; background: #0a0a0a; border: 2px solid #D4AF37; border-radius: 5px; cursor: pointer; transition: all 0.3s;">
+            <input type="radio" name="interest" value="CLIENT" style="margin-right: 10px;" />
+            <span style="color: #D4AF37; font-weight: bold; font-size: 1.1rem;">🏢 PIN8 CLIENT</span>
+            <p style="color: #888; font-size: 0.85rem; margin: 5px 0 0 0;">Interested PIN8 CLIENT (MSME Business Owner)</p>
+        </label>
     </div>
+    
+    <button onclick="attemptLogin()">Enter</button>
+    <p id="error-msg" class="hidden">Invalid Access Code</p>
+    <p class="small">Access Code: TAMBAY369</p>
+</div>
 
     <!-- DASHBOARD -->
     <div id="dashboard" class="hidden container">
