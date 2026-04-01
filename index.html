@@ -1,315 +1,436 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PIN8 Prime Spine System | Confidential Demo</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <!-- BREATHING LOGO -->
-    <div id="logo-bg">PIN8</div>
-    <div id="watermark"></div>
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-    <!-- PAGE 1: WELCOME & PRE-QUALIFICATION -->
-    <div id="page-welcome" class="container">
-        <div class="welcome-content">
-            <h1 class="gold-text">PIN8 PRIME SPINE SYSTEM</h1>
-            <p class="subtitle">Your Exciting Journey to FREEDOM, TEST ONLY 😊</p>
-            
-            <div class="access-section">
-                <input type="text" id="userName" placeholder="Your Full Name" autocomplete="off" />
-                <input type="password" id="accessCode" placeholder="Access Code" autocomplete="off" />
-                <p class="hint">Access Code: TAMBAY369</p>
-            </div>
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #000000;
+    color: #FFFFFF;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
 
-            <div class="qualification-section">
-                <p class="section-title">I am interested to be a:</p>
-                <div class="dual-options">
-                    <div class="option-card" onclick="selectType('FUNDER')">
-                        <div class="option-icon">💎</div>
-                        <h3>PIN8 FUNDER</h3>
-                        <p>Investment • Partnership • Ecosystem Growth</p>
-                    </div>
-                    <div class="option-card" onclick="selectType('CLIENT')">
-                        <div class="option-icon">🏢</div>
-                        <h3>PIN8 CLIENT</h3>
-                        <p>MSME Owner • Operational Excellence • Sovereignty</p>
-                    </div>
-                </div>
-                <p id="selectedType" class="selected-text"></p>
-            </div>
+#logo-bg {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 25rem;
+    font-weight: bold;
+    color: rgba(212, 175, 55, 0.02);
+    pointer-events: none;
+    z-index: 0;
+    animation: breathe 10s ease-in-out infinite;
+}
 
-            <!-- TIME WARNING -->
-            <div id="timeWarning" class="time-warning hidden">
-                <p>⏱️ Please take a moment to review the information above before proceeding.</p>
-            </div>
+@keyframes breathe {
+    0%, 100% { opacity: 0.01; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 0.05; transform: translate(-50%, -50%) scale(1.15); }
+}
 
-            <button onclick="enterDemo()" id="enterBtn" class="enter-btn" disabled>ENTER PIN8 ECOSYSTEM</button>
-            <p id="countdown" class="countdown hidden">Please wait: <span id="timer">60</span> seconds</p>
-            <p id="errorMsg" class="error hidden"></p>
-        </div>
-    </div>
+#watermark {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    font-size: 3rem;
+    opacity: 0.06;
+    pointer-events: none;
+    z-index: 9999;
+    color: #D4AF37;
+    font-weight: bold;
+}
 
-    <!-- PAGE 2: OVERVIEW & FAQ -->
-    <div id="page-overview" class="container hidden">
-        <header class="main-header">
-            <h2 id="welcomeName"></h2>
-            <button onclick="logout()" class="exit-btn">Exit</button>
-        </header>
+.page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+}
 
-        <!-- OVERVIEW SECTION -->
-        <section class="content-section">
-            <h2 class="section-heading gold-text">What is PIN8?</h2>
-            <div class="overview-box">
-                <p><strong>PIN8 Prime Spine System</strong> is a sovereign infrastructure platform designed for MSMEs and funders who value <span class="gold-text">autonomy over dependency</span> and <span class="gold-text">ownership over subscription</span>.</p>
-                <p>It's not just software—it's a <strong>foundation for business sovereignty</strong> that operates on covenant principles, not contracts.</p>
-            </div>
+.hidden { display: none !important; }
+.gold-text { color: #D4AF37; text-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
 
-            <div class="vision-mission-grid">
-                <div class="vm-card">
-                    <h3 class="gold-text">👁️ VISION</h3>
-                    <p>A world where every MSME operates with complete sovereignty—owning their data, controlling their infrastructure, and participating in ecosystem wealth creation.</p>
-                </div>
-                <div class="vm-card">
-                    <h3 class="gold-text">🎯 MISSION</h3>
-                    <p>To provide sovereign infrastructure that empowers businesses with perpetual rights, zero lock-ins, and seamless integration—while preserving 100% data ownership.</p>
-                </div>
-            </div>
+/* PAGE 1: REGISTRATION */
+.registration-box {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
 
-            <div class="problems-section">
-                <h3 class="gold-text">🔥 What Problems We SOLVE?</h3>
-                <div class="problem-grid">
-                    <div class="problem-item">
-                        <span class="problem-icon">🔒</span>
-                        <h4>Data Ownership</h4>
-                        <p>You own 100% of your data. We're processors, not owners.</p>
-                    </div>
-                    <div class="problem-item">
-                        <span class="problem-icon">🔗</span>
-                        <h4>Vendor Lock-in</h4>
-                        <p>Perpetual rights. Exit anytime. No hostage situations.</p>
-                    </div>
-                    <div class="problem-item">
-                        <span class="problem-icon">💸</span>
-                        <h4>Hidden Costs</h4>
-                        <p>Transparent pricing. Tier 1 from GROSS. No surprises.</p>
-                    </div>
-                    <div class="problem-item">
-                        <span class="problem-icon">🔄</span>
-                        <h4>Integration Chaos</h4>
-                        <p>Seamless API-first architecture. Works with your existing tools.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+.registration-box h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    letter-spacing: 0.5rem;
+}
 
-        <!-- FAQ SECTION -->
-        <section class="faq-section">
-            <h2 class="section-heading gold-text">Frequently Asked Questions</h2>
+.subtitle {
+    color: #888;
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    letter-spacing: 0.2rem;
+}
 
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span class="faq-icon">❓</span>
-                    <span>Is this another ERP, SAP, or IVY system?</span>
-                    <span class="toggle-icon">▼</span>
-                </div>
-                <div class="faq-answer hidden">
-                    <p><strong>No.</strong> PIN8 is fundamentally different:</p>
-                    <ul>
-                        <li><strong>ERP/SAP:</strong> Traditional systems you <em>subscribe to</em> (they own your data)</li>
-                        <li><strong>PIN8:</strong> Sovereign infrastructure you <em>participate in</em> (you own your data 100%)</li>
-                    </ul>
-                    <p>Think of it as the difference between <span class="gold-text">renting an apartment</span> vs <span class="gold-text">owning the foundation</span>. We don't replace your ERP—we give you sovereignty over it.</p>
-                </div>
-            </div>
+.form-section {
+    background: #0a0a0a;
+    border: 2px solid #D4AF37;
+    padding: 40px;
+    border-radius: 12px;
+}
 
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span class="faq-icon">❓</span>
-                    <span>I have an existing system. How can PIN8 enhance it?</span>
-                    <span class="toggle-icon">▼</span>
-                </div>
-                <div class="faq-answer hidden">
-                    <p><strong>PIN8 doesn't replace—it enhances and sovereignizes.</strong></p>
-                    <p>Our API-first architecture integrates with your current tools (QuickBooks, Xero, Salesforce, etc.) while adding:</p>
-                    <ul>
-                        <li>✨ <strong>Sovereignty Layer:</strong> You own all data, not your SaaS provider</li>
-                        <li>✨ <strong>Pulse Intelligence:</strong> Real-time insights across all systems</li>
-                        <li>✨ <strong>Unified Communication:</strong> Secure grid that connects everything</li>
-                        <li>✨ <strong>Wealth Participation:</strong> Share in ecosystem growth (funders)</li>
-                    </ul>
-                    <p class="gold-text"><em>Your existing tools become more powerful—and you finally own what you create.</em></p>
-                </div>
-            </div>
+.section-heading {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    color: #D4AF37;
+}
 
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span class="faq-icon">❓</span>
-                    <span>Is PIN8 compliant in all areas?</span>
-                    <span class="toggle-icon">▼</span>
-                </div>
-                <div class="faq-answer hidden">
-                    <p><strong>Yes. Built-in compliance from day one:</strong></p>
-                    <ul>
-                        <li>🔐 <strong>Data Privacy:</strong> RA 10173 (Philippines) • GDPR-ready • SOC 2 principles</li>
-                        <li>🔐 <strong>Security:</strong> End-to-end encryption • Isolated compartments • Zero-knowledge architecture</li>
-                        <li>🔐 <strong>Financial:</strong> BIR-compliant • Audit trails • Perpetual records</li>
-                        <li>🔐 <strong>Legal:</strong> Perpetual confidentiality • Non-circumvention • Covenant-based (not contract-based)</li>
-                    </ul>
-                    <p>We don't just meet compliance—we make it your competitive advantage.</p>
-                </div>
-            </div>
+input[type="text"], input[type="password"], input[type="email"], input[type="tel"], textarea {
+    width: 100%;
+    max-width: 500px;
+    margin: 15px auto;
+    padding: 15px 20px;
+    background: #000;
+    border: 2px solid #D4AF37;
+    color: #FFFFFF;
+    font-size: 1rem;
+    border-radius: 6px;
+    display: block;
+}
 
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span class="faq-icon">❓</span>
-                    <span>How is this different from traditional SaaS?</span>
-                    <span class="toggle-icon">▼</span>
-                </div>
-                <div class="faq-answer hidden">
-                    <div class="comparison-table">
-                        <div class="comparison-row">
-                            <div class="comparison-col traditional">
-                                <h4>Traditional SaaS</h4>
-                                <ul>
-                                    <li>❌ They own your data</li>
-                                    <li>❌ Monthly subscription forever</li>
-                                    <li>❌ Vendor lock-in</li>
-                                    <li>❌ Price increases anytime</li>
-                                    <li>❌ No equity participation</li>
-                                </ul>
-                            </div>
-                            <div class="comparison-col pin8">
-                                <h4 class="gold-text">PIN8</h4>
-                                <ul>
-                                    <li>✅ You own 100% of data</li>
-                                    <li>✅ One-time activation • Perpetual</li>
-                                    <li>✅ Exit rights • No lock-in</li>
-                                    <li>✅ Transparent • Tier 1 from GROSS</li>
-                                    <li>✅ Ecosystem wealth share (funders)</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+input:focus, textarea:focus {
+    outline: none;
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+    border-color: #FFD700;
+}
 
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span class="faq-icon">❓</span>
-                    <span>What's the timeline from YES to live?</span>
-                    <span class="toggle-icon">▼</span>
-                </div>
-                <div class="faq-answer hidden">
-                    <p><strong>Day 75 Go-Live Protocol:</strong></p>
-                    <ul>
-                        <li><strong>Week 1-2:</strong> Written Handshake • Alignment Call • Demo Access</li>
-                        <li><strong>Week 3-8:</strong> Integration Sprint • Data Migration • Training</li>
-                        <li><strong>Week 9-10:</strong> Testing • Sovereignty Guard Activation</li>
-                        <li><strong>Day 75:</strong> 🚀 GO-LIVE</li>
-                    </ul>
-                    <p>We don't rush foundations. We build them right.</p>
-                </div>
-            </div>
+textarea { min-height: 100px; resize: vertical; }
 
-            <!-- FUNDER-SPECIFIC FAQ -->
-            <div id="funder-faq" class="hidden">
-                <h3 class="section-heading gold-text" style="margin-top: 40px;">💎 FUNDER-SPECIFIC QUESTIONS</h3>
-                
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span class="faq-icon">💰</span>
-                        <span>What are the funding guidelines and fundamentals?</span>
-                        <span class="toggle-icon">▼</span>
-                    </div>
-                    <div class="faq-answer hidden">
-                        <p><strong>Capital Deployment: ₱3.69M (Non-Negotiable)</strong></p>
-                        <ul>
-                            <li><strong>Structure:</strong> Revenue + Royalty Share (No Equity Dilution)</li>
-                            <li><strong>Your Share:</strong> 7.38% Founding Funder (3.69% Revenue + 3.69% Royalty)</li>
-                            <li><strong>Payment:</strong> Tier 1 from GROSS • Quarterly • Perpetual (36-month minimum)</li>
-                            <li><strong>Access Fee:</strong> ₱369K (Day 1 • Activates integration)</li>
-                            <li><strong>Deployment:</strong> 5-Jar Split (Partner • PIN8 Corp • Militia • Shield • Architect)</li>
-                        </ul>
-                        <p class="gold-text"><em>This isn't an investment—it's infrastructure ownership with perpetual returns.</em></p>
-                    </div>
-                </div>
+/* FILE UPLOAD */
+.file-upload { margin: 25px 0; text-align: center; }
+.file-label {
+    display: inline-block;
+    background: #1a1a1a;
+    border: 2px solid #D4AF37;
+    padding: 15px 30px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #D4AF37;
+    transition: all 0.3s;
+}
+.file-label:hover { background: rgba(212, 175, 55, 0.1); }
+.file-label input { display: none; }
+.logo-preview {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border: 3px solid #D4AF37;
+    border-radius: 8px;
+    margin-top: 15px;
+}
 
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span class="faq-icon">🛡️</span>
-                        <span>What sovereignty guards protect my capital?</span>
-                        <span class="toggle-icon">▼</span>
-                    </div>
-                    <div class="faq-answer hidden">
-                        <ul>
-                            <li>🔒 <strong>Perpetual Confidentiality:</strong> Trade secrets protected forever</li>
-                            <li>🔒 <strong>Non-Circumvention:</strong> Cannot bypass the ecosystem</li>
-                            <li>🔒 <strong>Client Data Exclusion:</strong> Your data never used for others</li>
-                            <li>🔒 <strong>API-Only Integration:</strong> No merged code • Clean separation</li>
-                            <li>🔒 <strong>Exit Protocol:</strong> Defined exit rights • No hostage situations</li>
-                        </ul>
-                    </div>
-                </div>
+/* INDUSTRY GRID */
+.industry-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin: 30px 0;
+}
 
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span class="faq-icon">📊</span>
-                        <span>What's the ROI timeline for funders?</span>
-                        <span class="toggle-icon">▼</span>
-                    </div>
-                    <div class="faq-answer hidden">
-                        <p><strong>Conservative Projections (Post Day 75):</strong></p>
-                        <ul>
-                            <li><strong>Year 1:</strong> 10-20 MSME activations • ₱36.9M gross • Your share: ₱2.7M</li>
-                            <li><strong>Year 2:</strong> 25-40 MSME activations • ₱92.25M gross • Your share: ₱6.8M</li>
-                            <li><strong>Year 3:</strong> 50-75 MSME activations • ₱184.5M gross • Your share: ₱13.6M</li>
-                        </ul>
-                        <p><em>Actual numbers revealed after Written Handshake and alignment call.</em></p>
-                        <p class="gold-text">This is generational wealth infrastructure, not a quick flip.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+.industry-card {
+    background: #000;
+    border: 2px solid #333;
+    padding: 25px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+}
 
-        <!-- LEAD CAPTURE WITH PROTECTIONS -->
-        <section class="lead-section" id="leadSection">
-            <h2 class="section-heading gold-text">🎯 Ready to Explore Further?</h2>
-            <p class="section-subtitle">Share your context. This helps us align PIN8 to your specific needs.</p>
-            
-            <div class="lead-form">
-                <!-- HONEYPOT FIELD (Hidden from humans) -->
-                <input type="text" id="honeypot" class="honeypot" tabindex="-1" autocomplete="off" placeholder="" />
-                
-                <input type="email" id="leadEmail" placeholder="📧 Email Address" />
-                <input type="tel" id="leadPhone" placeholder="📱 Phone / WhatsApp" />
-                <input type="text" id="leadBusiness" placeholder="🏢 Business/Company Name" />
-                <textarea id="leadPainPoints" placeholder="💭 What are your biggest pain points, needs, and challenges right now?"></textarea>
-                <textarea id="leadQuestions" placeholder="❓ What are your top questions about PIN8?"></textarea>
-                
-                <!-- MATH CAPTCHA -->
-                <div class="captcha-section">
-                    <p class="captcha-question">Security Check: What is <span id="num1"></span> + <span id="num2"></span>?</p>
-                    <input type="number" id="captchaAnswer" placeholder="Your answer" />
-                </div>
-                
-                <button onclick="submitLead()" class="submit-btn">REQUEST EXCLUSIVE ALIGNMENT CALL</button>
-                <p class="form-hint">This is a conversation, not a commitment. We'll reach out within 48 hours.</p>
-                
-                <!-- REPORT ABUSE BUTTON -->
-                <button onclick="reportAbuse()" class="report-btn">🚨 Report Abuse / Suspicious Activity</button>
-            </div>
-        </section>
+.industry-card:hover {
+    border-color: #D4AF37;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+}
 
-        <footer class="main-footer">
-            <p class="gold-text">PIN8 PRIME SPINE SYSTEM</p>
-            <p>Sovereign Infrastructure • Perpetual Rights • Zero Lock-in</p>
-            <p class="small">© 2026 PIN8 Ecosystem • Confidential Demo Environment</p>
-            <p class="small">Protected by PIN8 Sovereignty Guards 🔐</p>
-        </footer>
-    </div>
+.industry-icon { font-size: 2.5rem; margin-bottom: 10px; }
+.industry-card h4 { color: #D4AF37; font-size: 1rem; margin-bottom: 5px; }
+.industry-card p { color: #888; font-size: 0.8rem; }
 
-    <script src="app.js"></script>
-</body>
-</html>
+.selected-text {
+    color: #FFD700;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+/* PERMISSION CHECKBOX */
+.permission-box {
+    background: rgba(212, 175, 55, 0.05);
+    border: 2px solid #D4AF37;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 25px 0;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.checkbox-container input {
+    width: 20px;
+    height: 20px;
+    accent-color: #D4AF37;
+}
+
+.checkbox-container p {
+    color: #aaa;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.hint { color: #666; font-size: 0.9rem; margin-top: 10px; }
+
+.enter-btn {
+    background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
+    color: #000;
+    border: none;
+    padding: 18px 60px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 6px;
+    margin: 30px 0 15px 0;
+    letter-spacing: 0.1rem;
+    transition: all 0.3s;
+}
+
+.enter-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 40px rgba(212, 175, 55, 0.6);
+}
+
+.error { color: #ff4444; font-weight: bold; margin-top: 20px; }
+
+/* PAGE 2: HEADER */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 2px solid #D4AF37;
+    margin-bottom: 30px;
+}
+
+.branded-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header-logo {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border: 2px solid #D4AF37;
+    border-radius: 8px;
+}
+
+#brandedBusinessName { color: #D4AF37; font-size: 1.5rem; }
+.industry-tag { color: #888; font-size: 0.9rem; }
+
+.exit-btn {
+    background: #1a1a1a;
+    color: #D4AF37;
+    border: 2px solid #D4AF37;
+    padding: 10px 25px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+/* ARCHITECTURE SECTION */
+.architecture-section {
+    background: #0a0a0a;
+    border: 2px solid #D4AF37;
+    padding: 40px;
+    border-radius: 12px;
+    margin: 30px 0;
+}
+
+.architecture-flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.arch-card {
+    background: #000;
+    border: 2px solid #333;
+    padding: 30px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 500px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.arch-card:hover {
+    border-color: #D4AF37;
+    transform: translateX(10px);
+}
+
+.arch-card h3 { color: #D4AF37; font-size: 1.5rem; margin-bottom: 5px; }
+.arch-subtitle { color: #FFD700; font-weight: bold; margin-bottom: 15px; }
+.arch-card p { color: #888; font-size: 0.9rem; line-height: 1.6; }
+.arch-status {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 5px 15px;
+    background: #1a1a1a;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.arch-arrow { color: #D4AF37; font-size: 2rem; }
+
+/* MODULE CONTENT */
+.module-content {
+    background: #0a0a0a;
+    border: 2px solid #D4AF37;
+    padding: 30px;
+    border-radius: 12px;
+    margin: 30px 0;
+}
+
+.module-content h3 { color: #D4AF37; margin-bottom: 20px; }
+.module-content input, .module-content select, .module-content textarea {
+    width: 100%;
+    max-width: 100%;
+    margin: 10px 0;
+}
+.module-content button {
+    background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
+    color: #000;
+    border: none;
+    padding: 12px 30px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: bold;
+    margin: 10px 5px;
+}
+
+.item-list {
+    background: #000;
+    border: 1px solid #333;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+.item-card {
+    background: #111;
+    border: 1px solid #D4AF37;
+    padding: 15px;
+    border-radius: 6px;
+    margin: 10px 0;
+}
+
+.item-card h5 { color: #D4AF37; margin-bottom: 5px; }
+.item-card p { color: #888; font-size: 0.9rem; }
+
+/* DASHBOARD REPORT */
+.dashboard-report {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(0, 0, 0, 0) 100%);
+    border: 3px solid #D4AF37;
+    padding: 40px;
+    border-radius: 12px;
+    margin: 30px 0;
+}
+
+.report-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.report-card {
+    background: #000;
+    border: 2px solid #D4AF37;
+    padding: 25px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.report-label { color: #888; font-size: 0.9rem; margin-bottom: 10px; }
+.report-value { color: #D4AF37; font-size: 2rem; font-weight: bold; }
+
+/* LEAD CAPTURE */
+.lead-capture-section {
+    background: #0a0a0a;
+    border: 3px solid #D4AF37;
+    padding: 50px 40px;
+    border-radius: 15px;
+    margin: 50px 0;
+    text-align: center;
+}
+
+.section-subtitle { color: #888; margin-bottom: 30px; }
+.lead-form { max-width: 700px; margin: 0 auto; }
+
+.submit-btn {
+    background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
+    color: #000;
+    border: none;
+    padding: 18px 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 8px;
+    margin: 20px 0 10px 0;
+    width: 100%;
+    max-width: 500px;
+}
+
+.form-hint { color: #666; font-size: 0.9rem; margin-top: 15px; }
+
+/* FOOTER */
+.main-footer {
+    text-align: center;
+    padding: 40px 20px;
+    margin-top: 60px;
+    border-top: 2px solid #333;
+}
+
+.main-footer p { margin: 8px 0; }
+.main-footer .small { font-size: 0.85rem; color: #555; }
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+    .industry-grid { grid-template-columns: repeat(2, 1fr); }
+    .report-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+    #logo-bg { font-size: 12rem; }
+    .registration-box h1 { font-size: 2rem; }
+    .form-section { padding: 25px; }
+    .industry-grid { grid-template-columns: repeat(2, 1fr); }
+    .report-grid { grid-template-columns: repeat(2, 1fr); }
+    .main-header { flex-direction: column; gap: 15px; text-align: center; }
+    .branded-info { flex-direction: column; }
+    .architecture-flow { gap: 15px; }
+    .arch-card { max-width: 100%; }
+}
+
+@media (max-width: 480px) {
+    .industry-grid { grid-template-columns: 1fr; }
+    .report-grid { grid-template-columns: 1fr; }
+    .enter-btn { padding: 15px 40px; font-size: 1rem; }
+}
