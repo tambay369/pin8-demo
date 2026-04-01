@@ -541,3 +541,128 @@ body {
     .comparison-row { grid-template-columns: 1fr; }
     .faq-answer { padding: 0 20px 20px 60px; }
 }
+/* === SECURITY PROTECTIONS === */
+
+/* HONEYPOT FIELD - Hidden from humans */
+.honeypot {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* TIME WARNING */
+.time-warning {
+    background: rgba(212, 175, 55, 0.1);
+    border: 2px solid #D4AF37;
+    padding: 15px 25px;
+    border-radius: 8px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.time-warning p {
+    color: #D4AF37;
+    margin: 0;
+}
+
+/* COUNTDOWN TIMER */
+.countdown {
+    color: #888;
+    font-size: 0.95rem;
+    margin: 15px 0;
+    text-align: center;
+}
+
+.countdown #timer {
+    color: #D4AF37;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* DISABLED BUTTON */
+.enter-btn:disabled {
+    background: #333;
+    color: #666;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.enter-btn:disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* CAPTCHA SECTION */
+.captcha-section {
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid #D4AF37;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+.captcha-question {
+    color: #D4AF37;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.captcha-question span {
+    color: #FFD700;
+    font-size: 1.4rem;
+}
+
+/* REPORT ABUSE BUTTON */
+.report-btn {
+    background: transparent;
+    color: #ff4444;
+    border: 2px solid #ff4444;
+    padding: 12px 30px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border-radius: 6px;
+    margin-top: 20px;
+    transition: all 0.3s;
+}
+
+.report-btn:hover {
+    background: rgba(255, 68, 68, 0.1);
+    box-shadow: 0 5px 20px rgba(255, 68, 68, 0.3);
+}
+
+/* SUSPICIOUS ACTIVITY ALERT */
+.suspicious-alert {
+    background: rgba(255, 0, 0, 0.1);
+    border: 2px solid #ff0000;
+    color: #ff4444;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* RATE LIMIT WARNING */
+.rate-limit-msg {
+    background: rgba(255, 165, 0, 0.1);
+    border: 2px solid #FFA500;
+    color: #FFA500;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+/* ERROR ANIMATION */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+.error-shake {
+    animation: shake 0.5s ease-in-out;
+}
