@@ -1,13 +1,17 @@
 // PIN8 DEMO SYSTEM
 let selectedIndustry = '';
 let businessLogo = '';
-let nickname = '';
-let businessName = '';
 
 // Module Data
-let foundationData = [];
-let growthData = [];
-let sustainabilityData = [];
+window.inventoryData = [];
+window.hrData = [];
+window.posData = [];
+window.logisticsData = [];
+window.supplierData = [];
+window.warehouseData = [];
+window.sizzleData = [];
+window.promoData = [];
+window.loyaltyData = [];
 
 // Logo Preview
 function previewLogo() {
@@ -27,41 +31,34 @@ function previewLogo() {
 // Select Industry
 function selectIndustry(industry) {
     selectedIndustry = industry;
-    const industryNames = {
-        'retail': 'RETAIL',
-        'restaurant': 'RESTAURANT',
-        'refreshments': 'REFRESHMENTS',
-        'manufacturing': 'MANUFACTURING',
-        'services': 'SERVICES',
-        'production': 'PRODUCTION',
-        'logistics': 'DELIVERY LOGISTICS',
-        'other': 'OTHER'
+    const names = {
+        'retail': 'RETAIL', 'restaurant': 'RESTAURANT', 'refreshments': 'REFRESHMENTS',
+        'manufacturing': 'MANUFACTURING', 'services': 'SERVICES', 'production': 'PRODUCTION',
+        'logistics': 'DELIVERY LOGISTICS', 'other': 'OTHER'
     };
-    document.getElementById('selectedIndustry').innerText = `✅ ${industryNames[industry]} Selected`;
+    document.getElementById('selectedIndustry').innerText = '✅ ' + names[industry] + ' Selected';
 }
 
 // Enter Demo
 function enterDemo() {
-    nickname = document.getElementById('nickname').value.trim();
-    businessName = document.getElementById('businessName').value.trim();
+    const nickname = document.getElementById('nickname').value.trim();
+    const businessName = document.getElementById('businessName').value.trim();
     const permission = document.getElementById('permissionCheck').checked;
     const code = document.getElementById('accessCode').value.trim();
 
     if (!nickname) { showError('Please enter a nickname'); return; }
     if (!businessName) { showError('Please enter your business name'); return; }
     if (!selectedIndustry) { showError('Please select your industry'); return; }
-    if (!permission) { showError('Please confirm your interest for PIN8 DEMO'); return; }
+    if (!permission) { showError('Please confirm your interest'); return; }
     if (code !== 'TAMBAY369') { showError('Invalid Access Code'); return; }
 
-    // Apply Branding
     document.getElementById('brandedBusinessName').innerText = businessName.toUpperCase();
     document.getElementById('brandedIndustry').innerText = selectedIndustry.toUpperCase();
-    document.getElementById('watermark').innerText = `${nickname} • ${businessName} • CONFIDENTIAL`;
+    document.getElementById('watermark').innerText = nickname + ' • ' + businessName + ' • CONFIDENTIAL';
 
     if (businessLogo) {
-        const headerLogo = document.getElementById('headerLogo');
-        headerLogo.src = businessLogo;
-        headerLogo.classList.remove('hidden');
+        document.getElementById('headerLogo').src = businessLogo;
+        document.getElementById('headerLogo').classList.remove('hidden');
     }
 
     document.getElementById('page-1').classList.add('hidden');
@@ -76,173 +73,253 @@ function openModule(module) {
 
     if (module === 'foundation') {
         content.innerHTML = `
-            <h3>💬 FOUNDATION: CORE SYSTEMS</h3>
-            <p style="color:#888; margin-bottom:20px;">Internal Operations • Team Communication</p>
-            <input type="text" id="foundationInput" placeholder="Team message or task..." />
-            <select id="foundationType">
-                <option value="message">Team Message</option>
-                <option value="task">Task Assignment</option>
-            </select>
-            <button onclick="addFoundation()">Add to Core Systems</button>
-            <div id="foundationList" class="item-list"></div>
+            <h3>📦 FOUNDATION: CORE SYSTEMS</h3>
+            <p style="color:#888; margin-bottom:20px;">Inventory • Human Resource • Point of Sales</p>
+            <div class="module-tabs">
+                <button onclick="showTab('inventory')" class="tab-btn active">📦 Inventory</button>
+                <button onclick="showTab('hr')" class="tab-btn">👥 HR</button>
+                <button onclick="showTab('pos')" class="tab-btn">💰 POS</button>
+            </div>
+            <div id="tab-inventory" class="tab-content">
+                <input type="text" id="invItem" placeholder="Item Name" />
+                <input type="number" id="invQty" placeholder="Quantity" />
+                <input type="number" id="invPrice" placeholder="Price (₱)" />
+                <button onclick="addInventory()">Add</button>
+                <div id="inventoryList" class="item-list"></div>
+            </div>
+            <div id="tab-hr" class="tab-content hidden">
+                <input type="text" id="hrName" placeholder="Employee Name" />
+                <input type="text" id="hrPosition" placeholder="Position" />
+                <button onclick="addHR()">Add</button>
+                <div id="hrList" class="item-list"></div>
+            </div>
+            <div id="tab-pos" class="tab-content hidden">
+                <input type="text" id="posItem" placeholder="Item Sold" />
+                <input type="number" id="posAmount" placeholder="Amount (₱)" />
+                <button onclick="addPOS()">Record</button>
+                <div id="posList" class="item-list"></div>
+            </div>
         `;
-        renderFoundation();
         document.getElementById('status-foundation').innerText = '✓ In Progress';
         document.getElementById('status-foundation').style.color = '#D4AF37';
     } else if (module === 'growth') {
         content.innerHTML = `
-            <h3>📦 GROWTH: SUPPLY CHAIN MANAGEMENT</h3>
-            <p style="color:#888; margin-bottom:20px;">Inventory • POS • Vendor Management</p>
-            <input type="text" id="growthItem" placeholder="Item/Product Name" />
-            <input type="number" id="growthQty" placeholder="Quantity" />
-            <input type="number" id="growthPrice" placeholder="Price (₱)" />
-            <button onclick="addGrowth()">Add to Supply Chain</button>
-            <div id="growthList" class="item-list"></div>
+            <h3>🚚 GROWTH: SUPPLY CHAIN</h3>
+            <p style="color:#888; margin-bottom:20px;">Logistics • Suppliers • Warehouse</p>
+            <div class="module-tabs">
+                <button onclick="showTab('logistics')" class="tab-btn active">🚚 Logistics</button>
+                <button onclick="showTab('suppliers')" class="tab-btn">🤝 Suppliers</button>
+                <button onclick="showTab('warehouse')" class="tab-btn">🏭 Warehouse</button>
+            </div>
+            <div id="tab-logistics" class="tab-content">
+                <input type="text" id="logDelivery" placeholder="Destination" />
+                <input type="text" id="logItem" placeholder="Item" />
+                <button onclick="addLogistics()">Schedule</button>
+                <div id="logisticsList" class="item-list"></div>
+            </div>
+            <div id="tab-suppliers" class="tab-content hidden">
+                <input type="text" id="supName" placeholder="Supplier Name" />
+                <input type="text" id="supProduct" placeholder="Product" />
+                <button onclick="addSupplier()">Add</button>
+                <div id="supplierList" class="item-list"></div>
+            </div>
+            <div id="tab-warehouse" class="tab-content hidden">
+                <input type="text" id="whItem" placeholder="Item" />
+                <input type="text" id="whLocation" placeholder="Location" />
+                <button onclick="addWarehouse()">Add</button>
+                <div id="warehouseList" class="item-list"></div>
+            </div>
         `;
-        renderGrowth();
         document.getElementById('status-growth').innerText = '✓ In Progress';
         document.getElementById('status-growth').style.color = '#D4AF37';
     } else if (module === 'sustainability') {
         content.innerHTML = `
-            <h3>📊 SUSTAINABILITY: CUSTOMER RELATIONSHIP</h3>
-            <p style="color:#888; margin-bottom:20px;">Customer Data • Sales Analytics</p>
-            <input type="text" id="sustainCustomer" placeholder="Customer Name" />
-            <input type="text" id="sustainPurchase" placeholder="Purchase Item" />
-            <input type="number" id="sustainAmount" placeholder="Amount (₱)" />
-            <button onclick="addSustainability()">Record Customer Interaction</button>
-            <div id="sustainList" class="item-list"></div>
+            <h3>💎 SUSTAINABILITY: CUSTOMER</h3>
+            <p style="color:#888; margin-bottom:20px;">Sizzle • Promotions • Loyalty</p>
+            <div class="module-tabs">
+                <button onclick="showTab('sizzle')" class="tab-btn active">✨ Sizzle</button>
+                <button onclick="showTab('promo')" class="tab-btn">🎁 Promotions</button>
+                <button onclick="showTab('loyalty')" class="tab-btn">💝 Loyalty</button>
+            </div>
+            <div id="tab-sizzle" class="tab-content">
+                <input type="text" id="sizTitle" placeholder="Update Title" />
+                <input type="text" id="sizContent" placeholder="Content" />
+                <button onclick="addSizzle()">Post</button>
+                <div id="sizzleList" class="item-list"></div>
+            </div>
+            <div id="tab-promo" class="tab-content hidden">
+                <input type="text" id="proName" placeholder="Promo Name" />
+                <input type="text" id="proDetails" placeholder="Details" />
+                <button onclick="addPromo()">Create</button>
+                <div id="promoList" class="item-list"></div>
+            </div>
+            <div id="tab-loyalty" class="tab-content hidden">
+                <input type="text" id="loyCustomer" placeholder="Customer" />
+                <input type="text" id="loyPoints" placeholder="Points" />
+                <button onclick="addLoyalty()">Add</button>
+                <div id="loyaltyList" class="item-list"></div>
+            </div>
         `;
-        renderSustainability();
         document.getElementById('status-sustainability').innerText = '✓ In Progress';
         document.getElementById('status-sustainability').style.color = '#D4AF37';
     }
     window.scrollTo(0, 600);
 }
 
-// Foundation Module
-function addFoundation() {
-    const input = document.getElementById('foundationInput').value;
-    const type = document.getElementById('foundationType').value;
-    if (!input) return;
-    foundationData.push({ input, type, timestamp: new Date().toLocaleTimeString() });
-    document.getElementById('foundationInput').value = '';
-    renderFoundation();
+// Tab Switching
+function showTab(tab) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.remove('hidden');
+    event.target.classList.add('active');
+}
+
+// FOUNDATION Functions
+function addInventory() {
+    const item = document.getElementById('invItem').value;
+    const qty = document.getElementById('invQty').value;
+    const price = document.getElementById('invPrice').value;
+    if (!item) return;
+    window.inventoryData.push({ item, qty, price });
+    document.getElementById('invItem').value = '';
+    renderList('inventoryList', window.inventoryData, '📦');
     updateDashboard();
 }
 
-function renderFoundation() {
-    const container = document.getElementById('foundationList');
-    if (!container) return;
-    container.innerHTML = foundationData.map(d => `
-        <div class="item-card">
-            <h5>${d.type === 'message' ? '💬' : '📋'} ${d.input}</h5>
-            <p>🕐 ${d.timestamp}</p>
-        </div>
-    `).join('');
-}
-
-// Growth Module
-function addGrowth() {
-    const item = document.getElementById('growthItem').value;
-    const qty = document.getElementById('growthQty').value;
-    const price = document.getElementById('growthPrice').value;
-    if (!item || !qty || !price) return;
-    growthData.push({ item, qty, price, timestamp: new Date().toLocaleDateString() });
-    document.getElementById('growthItem').value = '';
-    document.getElementById('growthQty').value = '';
-    document.getElementById('growthPrice').value = '';
-    renderGrowth();
+function addHR() {
+    const name = document.getElementById('hrName').value;
+    const pos = document.getElementById('hrPosition').value;
+    if (!name) return;
+    window.hrData.push({ name, pos });
+    document.getElementById('hrName').value = '';
+    renderList('hrList', window.hrData, '👤');
     updateDashboard();
 }
 
-function renderGrowth() {
-    const container = document.getElementById('growthList');
-    if (!container) return;
-    container.innerHTML = growthData.map(d => `
-        <div class="item-card">
-            <h5>📦 ${d.item}</h5>
-            <p>📊 ${d.qty} units • ₱${d.price}</p>
-            <p style="color:#666;">📅 ${d.timestamp}</p>
-        </div>
-    `).join('');
-}
-
-// Sustainability Module
-function addSustainability() {
-    const customer = document.getElementById('sustainCustomer').value;
-    const purchase = document.getElementById('sustainPurchase').value;
-    const amount = document.getElementById('sustainAmount').value;
-    if (!customer || !purchase || !amount) return;
-    sustainabilityData.push({ customer, purchase, amount, timestamp: new Date().toLocaleDateString() });
-    document.getElementById('sustainCustomer').value = '';
-    document.getElementById('sustainPurchase').value = '';
-    document.getElementById('sustainAmount').value = '';
-    renderSustainability();
+function addPOS() {
+    const item = document.getElementById('posItem').value;
+    const amt = document.getElementById('posAmount').value;
+    if (!item) return;
+    window.posData.push({ item, amt });
+    document.getElementById('posItem').value = '';
+    renderList('posList', window.posData, '💰');
     updateDashboard();
 }
 
-function renderSustainability() {
-    const container = document.getElementById('sustainList');
+// GROWTH Functions
+function addLogistics() {
+    const dest = document.getElementById('logDelivery').value;
+    const item = document.getElementById('logItem').value;
+    if (!dest) return;
+    window.logisticsData.push({ dest, item });
+    document.getElementById('logDelivery').value = '';
+    renderList('logisticsList', window.logisticsData, '🚚');
+    updateDashboard();
+}
+
+function addSupplier() {
+    const name = document.getElementById('supName').value;
+    const prod = document.getElementById('supProduct').value;
+    if (!name) return;
+    window.supplierData.push({ name, prod });
+    document.getElementById('supName').value = '';
+    renderList('supplierList', window.supplierData, '🤝');
+    updateDashboard();
+}
+
+function addWarehouse() {
+    const item = document.getElementById('whItem').value;
+    const loc = document.getElementById('whLocation').value;
+    if (!item) return;
+    window.warehouseData.push({ item, loc });
+    document.getElementById('whItem').value = '';
+    renderList('warehouseList', window.warehouseData, '🏭');
+    updateDashboard();
+}
+
+// SUSTAINABILITY Functions
+function addSizzle() {
+    const title = document.getElementById('sizTitle').value;
+    const content = document.getElementById('sizContent').value;
+    if (!title) return;
+    window.sizzleData.push({ title, content });
+    document.getElementById('sizTitle').value = '';
+    renderList('sizzleList', window.sizzleData, '✨');
+    updateDashboard();
+}
+
+function addPromo() {
+    const name = document.getElementById('proName').value;
+    const details = document.getElementById('proDetails').value;
+    if (!name) return;
+    window.promoData.push({ name, details });
+    document.getElementById('proName').value = '';
+    renderList('promoList', window.promoData, '🎁');
+    updateDashboard();
+}
+
+function addLoyalty() {
+    const customer = document.getElementById('loyCustomer').value;
+    const points = document.getElementById('loyPoints').value;
+    if (!customer) return;
+    window.loyaltyData.push({ customer, points });
+    document.getElementById('loyCustomer').value = '';
+    renderList('loyaltyList', window.loyaltyData, '💝');
+    updateDashboard();
+}
+
+// Render List Helper
+function renderList(listId, data, icon) {
+    const container = document.getElementById(listId);
     if (!container) return;
-    container.innerHTML = sustainabilityData.map(d => `
-        <div class="item-card">
-            <h5>👤 ${d.customer}</h5>
-            <p>🛒 ${d.purchase} • ₱${d.amount}</p>
-            <p style="color:#666;">📅 ${d.timestamp}</p>
-        </div>
-    `).join('');
+    container.innerHTML = data.map(d => {
+        let html = '<div class="item-card"><h5>' + icon + ' ' + Object.values(d)[0] + '</h5>';
+        for (let key in d) {
+            if (key !== Object.keys(d)[0]) html += '<p>' + d[key] + '</p>';
+        }
+        html += '</div>';
+        return html;
+    }).join('');
 }
 
 // Update Dashboard
 function updateDashboard() {
     document.getElementById('dashboard-report').classList.remove('hidden');
-    document.getElementById('report-talk').innerText = foundationData.length;
-    document.getElementById('report-manage').innerText = growthData.length;
-    document.getElementById('report-track').innerText = sustainabilityData.length;
+    const f = window.inventoryData.length + window.hrData.length + window.posData.length;
+    const g = window.logisticsData.length + window.supplierData.length + window.warehouseData.length;
+    const s = window.sizzleData.length + window.promoData.length + window.loyaltyData.length;
+    const rev = window.posData.reduce((sum, d) => sum + (parseFloat(d.amt) || 0), 0);
     
-    const revenue = sustainabilityData.reduce((sum, d) => sum + parseFloat(d.amount), 0);
-    document.getElementById('report-revenue').innerText = '₱' + revenue.toLocaleString();
+    document.getElementById('report-foundation').innerText = f;
+    document.getElementById('report-growth').innerText = g;
+    document.getElementById('report-sustainability').innerText = s;
+    document.getElementById('report-revenue').innerText = '₱' + rev.toLocaleString();
 }
 
 // Submit Lead
 function submitLead() {
     const name = document.getElementById('leadName').value.trim();
     const email = document.getElementById('leadEmail').value.trim();
-    const phone = document.getElementById('leadPhone').value.trim();
-    const business = document.getElementById('leadBusiness').value.trim();
-    const painPoints = document.getElementById('leadPainPoints').value.trim();
-    const questions = document.getElementById('leadQuestions').value.trim();
-
     if (!name || !email) { alert('Name and Email required'); return; }
-
+    
     const leadData = {
-        nickname, businessName, selectedIndustry,
-        name, email, phone, business, painPoints, questions,
-        sessionData: {
-            foundation: foundationData.length,
-            growth: growthData.length,
-            sustainability: sustainabilityData.length
-        },
+        name, email,
+        business: document.getElementById('leadBusiness').value,
+        painPoints: document.getElementById('leadPainPoints').value,
+        questions: document.getElementById('leadQuestions').value,
         timestamp: new Date().toISOString()
     };
-
+    
     const leads = JSON.parse(localStorage.getItem('pin8_demo_leads') || '[]');
     leads.push(leadData);
     localStorage.setItem('pin8_demo_leads', JSON.stringify(leads));
-
-    alert(`✅ Thank you ${name}!\n\nYour information has been received.\n\nWe'll reach out within 48 hours to guide you to the next step.`);
-
+    
+    alert('✅ Thank you! We will reach out within 48 hours.');
     document.getElementById('leadName').value = '';
     document.getElementById('leadEmail').value = '';
-    document.getElementById('leadPhone').value = '';
-    document.getElementById('leadBusiness').value = '';
-    document.getElementById('leadPainPoints').value = '';
-    document.getElementById('leadQuestions').value = '';
 }
 
-function logout() {
-    location.reload();
-}
+function logout() { location.reload(); }
 
 function showError(msg) {
     const err = document.getElementById('errorMsg');
@@ -251,9 +328,8 @@ function showError(msg) {
     setTimeout(() => err.classList.add('hidden'), 8000);
 }
 
-// Console Command
-console.log("%c📊 PIN8 DEMO LEADS", "color: #D4AF37; font-size: 20px; font-weight: bold;");
-console.log("%cType viewLeads() to see collected data", "color: #888;");
+console.log("%c📊 PIN8 DEMO LEADS", "color: #D4AF37; font-size: 20px;");
+console.log("%cType viewLeads() to see data", "color: #888;");
 
 function viewLeads() {
     const leads = JSON.parse(localStorage.getItem('pin8_demo_leads') || '[]');
