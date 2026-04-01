@@ -666,3 +666,29 @@ body {
 .error-shake {
     animation: shake 0.5s ease-in-out;
 }
+/* FREEZE MESSAGE STYLING */
+.freeze-message {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(0, 0, 0, 0) 100%);
+    border: 3px solid #D4AF37;
+    padding: 40px 30px;
+    border-radius: 12px;
+    margin: 30px 0;
+    text-align: center;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
+    50% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.6); }
+}
+
+.freeze-message p {
+    margin: 10px 0;
+}
+
+/* FADED CONTENT WHEN FROZEN */
+.welcome-content.frozen {
+    pointer-events: none;
+    opacity: 0.5;
+    filter: blur(2px);
+}
