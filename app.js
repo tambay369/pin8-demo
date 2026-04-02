@@ -57,8 +57,9 @@ function enterDemo() {
     document.getElementById('watermark').innerText = nickname + ' • ' + businessName + ' • CONFIDENTIAL';
 
     if (businessLogo) {
-        document.getElementById('headerLogo').src = businessLogo;
-        document.getElementById('headerLogo').classList.remove('hidden');
+        const headerLogo = document.getElementById('headerLogo');
+        headerLogo.src = businessLogo;
+        headerLogo.classList.remove('hidden');
     }
 
     document.getElementById('page-1').classList.add('hidden');
@@ -74,7 +75,7 @@ function openModule(module) {
     if (module === 'foundation') {
         content.innerHTML = `
             <h3>📦 FOUNDATION: CORE SYSTEMS</h3>
-            <p style="color:#888; margin-bottom:20px;">Inventory • Human Resource • Point of Sales</p>
+            <p class="module-title">Inventory • Human Resource • Point of Sales</p>
             <div class="module-tabs">
                 <button onclick="showTab('inventory')" class="tab-btn active">📦 Inventory</button>
                 <button onclick="showTab('hr')" class="tab-btn">👥 HR</button>
@@ -105,7 +106,7 @@ function openModule(module) {
     } else if (module === 'growth') {
         content.innerHTML = `
             <h3>🚚 GROWTH: SUPPLY CHAIN</h3>
-            <p style="color:#888; margin-bottom:20px;">Logistics • Suppliers • Warehouse</p>
+            <p class="module-title">Logistics • Suppliers • Warehouse</p>
             <div class="module-tabs">
                 <button onclick="showTab('logistics')" class="tab-btn active">🚚 Logistics</button>
                 <button onclick="showTab('suppliers')" class="tab-btn">🤝 Suppliers</button>
@@ -135,7 +136,7 @@ function openModule(module) {
     } else if (module === 'sustainability') {
         content.innerHTML = `
             <h3>💎 SUSTAINABILITY: CUSTOMER</h3>
-            <p style="color:#888; margin-bottom:20px;">Sizzle • Promotions • Loyalty</p>
+            <p class="module-title">Sizzle • Promotions • Loyalty</p>
             <div class="module-tabs">
                 <button onclick="showTab('sizzle')" class="tab-btn active">✨ Sizzle</button>
                 <button onclick="showTab('promo')" class="tab-btn">🎁 Promotions</button>
